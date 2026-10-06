@@ -856,5 +856,80 @@
     "custody": "none",
     "provenance": [],
     "listedAt": "2026-10-06"
+  },
+  {
+    "id": "w-hh-34",
+    "artistId": "hoohoo",
+    "title": "스며들다 (Permeate) 34",
+    "year": 2025,
+    "medium": "캔버스에 아크릴, 모래, 혼합재료",
+    "size": "132 × 160 cm",
+    "sizeHo": 100,
+    "price": 25000000,
+    "status": "available",
+    "framed": null,
+    "images": [
+      "works/w-hh-34/main.jpg",
+      "works/w-hh-34/detail-1.jpg",
+      "works/w-hh-34/detail-2.jpg",
+      "works/w-hh-34/detail-3.jpg"
+    ],
+    "tags": [
+      "회화",
+      "추상"
+    ],
+    "custody": "none",
+    "provenance": [],
+    "listedAt": "2026-10-06"
+  },
+  {
+    "id": "w-hh-78",
+    "artistId": "hoohoo",
+    "title": "스며들다 (Permeate) 78",
+    "year": 2026,
+    "medium": "캔버스에 아크릴, 모래, 혼합재료",
+    "size": "132 × 160 cm",
+    "sizeHo": 100,
+    "price": 25000000,
+    "status": "available",
+    "framed": null,
+    "images": [
+      "works/w-hh-78/main.jpg",
+      "works/w-hh-78/detail-1.jpg",
+      "works/w-hh-78/detail-2.jpg",
+      "works/w-hh-78/detail-3.jpg"
+    ],
+    "tags": [
+      "회화",
+      "추상"
+    ],
+    "custody": "none",
+    "provenance": [],
+    "listedAt": "2026-10-06"
+  },
+  {
+    "id": "w-hh-75",
+    "artistId": "hoohoo",
+    "title": "스며들다 (Permeate) 75",
+    "year": 2026,
+    "medium": "캔버스에 아크릴, 모래, 혼합재료",
+    "size": "116 × 91 cm",
+    "sizeHo": 50,
+    "price": 10000000,
+    "status": "available",
+    "framed": null,
+    "images": [
+      "works/w-hh-75/main.jpg",
+      "works/w-hh-75/detail-1.jpg",
+      "works/w-hh-75/detail-2.jpg",
+      "works/w-hh-75/detail-3.jpg"
+    ],
+    "tags": [
+      "회화",
+      "추상"
+    ],
+    "custody": "none",
+    "provenance": [],
+    "listedAt": "2026-10-06"
   }
 ]
