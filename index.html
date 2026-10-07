@@ -180,32 +180,35 @@ a:hover .arw,button:hover .arw{transform:translateX(3px)}
 .nav-ic:hover{opacity:.6}
 html.lock{overflow:hidden}
 
-/* 전체 메뉴 */
+/* 전체 메뉴 — 왼쪽 드로어(Pace 형식) */
 .menu[hidden],.search[hidden]{display:none!important}
-.menu{position:fixed;inset:0;z-index:80;display:flex;flex-direction:column;overflow-y:auto;background:#1B1B1B;color:#fff;
-  opacity:0;transform:translateY(-12px);transition:opacity .3s var(--ease),transform .3s var(--ease)}
-.menu.on{opacity:1;transform:none}
+.menu{position:fixed;inset:0;z-index:80;background:rgba(255,255,255,.72);opacity:0;transition:opacity .3s var(--ease)}
+.menu.on{opacity:1}
+.menu-panel{position:absolute;top:0;left:0;bottom:0;width:min(400px,100%);display:flex;flex-direction:column;overflow-y:auto;
+  background:#111;color:#fff;transform:translateX(-100%);transition:transform .35s var(--ease)}
+.menu.on .menu-panel{transform:none}
 .menu-top,.search-top{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:88px;padding:0 clamp(20px,3.4vw,56px);
   border-bottom:1px solid rgba(255,255,255,.14)}
-.menu .langbtn{margin:0;padding:8px 0;border:0;border-radius:0;font-family:var(--sans);font-size:15px;font-weight:600;letter-spacing:.08em;opacity:1;color:#fff}
+.menu .menu-top{min-height:84px;padding:0 28px 0 36px;border-bottom:0}
+.menu .langbtn{margin:0;padding:8px 0;border:0;border-radius:0;font-family:var(--sans);font-size:13px;font-weight:600;letter-spacing:.08em;opacity:1;color:#fff}
 .menu .langbtn:hover{background:none;opacity:.6}
 .menu-x{display:inline-flex;width:44px;height:44px;align-items:center;justify-content:center;padding:0;border:0;background:none;color:inherit;cursor:pointer}
+.menu .menu-x{margin-left:-10px}
 .menu-x:hover{opacity:.6}
-.menu-links{display:flex;flex-direction:column;align-items:flex-start;padding:clamp(36px,6vh,72px) clamp(20px,3.4vw,56px)}
-.menu-links a{font-size:clamp(40px,6.4vw,92px);font-weight:700;line-height:1.14;letter-spacing:-.01em;text-transform:uppercase;color:#fff;transition:opacity .2s}
+.menu-links{display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:48px 44px 0}
+.menu-links a{font-size:24px;font-weight:700;line-height:1.75;letter-spacing:-.01em;color:#fff;transition:opacity .2s}
 .menu-links a:hover{opacity:.55}
-.menu-follow{display:flex;align-items:center;gap:22px;margin-top:auto;padding:clamp(28px,4vh,48px) clamp(20px,3.4vw,56px);
-  border-top:1px solid rgba(255,255,255,.14)}
-.menu-follow span{margin-right:14px;font-size:15px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
-.menu-follow a{display:inline-flex;width:26px;height:26px;color:#fff}
+.menu-sub{display:flex;flex-direction:column;align-items:flex-start;gap:12px;padding:56px 44px 0}
+.menu-sub a{font-size:14px;font-weight:400;color:#fff;transition:opacity .2s}
+.menu-sub a:hover{opacity:.55}
+.menu-foot{margin-top:auto;padding:48px 44px 36px}
+.menu-foot ul{list-style:none;display:grid;gap:8px}
+.menu-foot a{font-size:12.5px;font-weight:400;color:rgba(255,255,255,.62)}
+.menu-foot a:hover{color:#fff}
+.menu-follow{display:flex;align-items:center;gap:18px;margin-top:22px}
+.menu-follow a{display:inline-flex;width:20px;height:20px;color:#fff}
 .menu-follow a:hover{opacity:.6}
 .menu-follow svg{width:100%;height:100%}
-.menu-foot{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;padding:clamp(32px,5vh,64px) clamp(20px,3.4vw,56px) clamp(40px,6vh,80px);
-  border-top:1px solid rgba(255,255,255,.14)}
-.menu-logo{font-size:clamp(26px,2.6vw,38px);font-weight:800;letter-spacing:-.02em;text-transform:uppercase}
-.menu-foot ul{list-style:none;display:grid;gap:14px}
-.menu-foot a{font-size:15px;font-weight:600;letter-spacing:.02em;color:#fff}
-.menu-foot a:hover{opacity:.6}
 
 /* 검색 */
 .search{position:fixed;inset:0;z-index:80;display:flex;flex-direction:column;background:#fff;color:#111;
@@ -379,7 +382,9 @@ html.lock{overflow:hidden}
   .nav .mark{font-size:15px}
   .nav-burger span{width:26px}
   .menu-top,.search-top{min-height:72px}
-  .menu-foot{grid-template-columns:minmax(0,1fr)}
+  .menu .menu-top{min-height:64px;padding:0 20px 0 28px}
+  .menu-links{padding:32px 32px 0}
+  .menu-sub,.menu-foot{padding-left:32px;padding-right:32px}
   .g-show{flex-direction:column;align-items:flex-start}
 }
 @media (max-width:420px){
@@ -1238,33 +1243,35 @@ body.subpage{padding-top:0}
 </nav>
 
 <div class="menu" id="menu" hidden>
-  <div class="menu-top">
-    <button class="langbtn" id="langbtn" type="button" data-i18n-skip aria-label="View in English">EN</button>
-    <button class="menu-x" type="button" data-close-overlay aria-label="메뉴 닫기"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
-  </div>
-  <nav class="menu-links" aria-label="주 메뉴">
-    <a href="#/buy">작품</a>
-    <a href="#/artists">작가</a>
-    <a href="#/records">판매 기록</a>
-    <a href="#/show">전시</a>
-    <a href="#/sell">작가 지원</a>
-    <a href="#/how">구매 안내</a>
-    <a href="#/journal">저널</a>
-    <a href="#/about">소개</a>
-    <a href="#/contact">문의</a>
-  </nav>
-  <div class="menu-follow">
-    <span>Follow</span>
-    <a href="https://www.instagram.com/gallery751__/" target="_blank" rel="noopener" aria-label="인스타그램"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor" stroke="none"/></svg></a>
-    <a href="https://www.threads.com/@gallery751__" target="_blank" rel="noopener" aria-label="스레드"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12.2 21.5c-5.4 0-8.7-3.4-8.7-9.4S6.9 2.5 12.2 2.5c3.6 0 6.2 1.4 7.5 4"/><path d="M8.6 9.4c.6-1.3 1.9-2 3.6-2 2.4 0 3.8 1.3 3.9 3.7.1 3-1.1 4.6-3.1 4.6-1.4 0-2.4-.8-2.4-1.9 0-1.3 1.2-2.1 3.4-2.1 3.3 0 5.1 1.4 5.1 3.8 0 2.5-2 4.2-5 4.4"/></svg></a>
-  </div>
-  <div class="menu-foot">
-    <span class="menu-logo">Gallery 751</span>
-    <ul>
-      <li><a href="mailto:inquiries@gallery751.com">inquiries@gallery751.com</a></li>
-      <li><a href="mailto:submissions@gallery751.com">submissions@gallery751.com</a></li>
-      <li><a href="mailto:press@gallery751.com">press@gallery751.com</a></li>
-    </ul>
+  <div class="menu-panel">
+    <div class="menu-top">
+      <button class="menu-x" type="button" data-close-overlay aria-label="메뉴 닫기"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
+      <button class="langbtn" id="langbtn" type="button" data-i18n-skip aria-label="View in English">EN</button>
+    </div>
+    <nav class="menu-links" aria-label="주 메뉴">
+      <a href="#/buy">작품</a>
+      <a href="#/artists">작가</a>
+      <a href="#/records">판매 기록</a>
+      <a href="#/show">전시</a>
+      <a href="#/journal">저널</a>
+      <a href="#/sell">작가 지원</a>
+    </nav>
+    <div class="menu-sub">
+      <a href="#/how">구매 안내</a>
+      <a href="#/about">소개</a>
+      <a href="#/contact">문의</a>
+    </div>
+    <div class="menu-foot">
+      <ul>
+        <li><a href="mailto:inquiries@gallery751.com">inquiries@gallery751.com</a></li>
+        <li><a href="mailto:submissions@gallery751.com">submissions@gallery751.com</a></li>
+        <li><a href="mailto:press@gallery751.com">press@gallery751.com</a></li>
+      </ul>
+      <div class="menu-follow">
+        <a href="https://www.instagram.com/gallery751__/" target="_blank" rel="noopener" aria-label="인스타그램"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor" stroke="none"/></svg></a>
+        <a href="https://www.threads.com/@gallery751__" target="_blank" rel="noopener" aria-label="스레드"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12.2 21.5c-5.4 0-8.7-3.4-8.7-9.4S6.9 2.5 12.2 2.5c3.6 0 6.2 1.4 7.5 4"/><path d="M8.6 9.4c.6-1.3 1.9-2 3.6-2 2.4 0 3.8 1.3 3.9 3.7.1 3-1.1 4.6-3.1 4.6-1.4 0-2.4-.8-2.4-1.9 0-1.3 1.2-2.1 3.4-2.1 3.3 0 5.1 1.4 5.1 3.8 0 2.5-2 4.2-5 4.4"/></svg></a>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -4515,7 +4522,8 @@ addEventListener('hashchange', () => {
   openM.addEventListener('click', () => open(menu));
   openS.addEventListener('click', () => { open(search, q); render(); });
   document.querySelectorAll('[data-close-overlay]').forEach(b => b.addEventListener('click', closeAll));
-  menu.querySelectorAll('.menu-links a').forEach(a => a.addEventListener('click', () => close(menu)));
+  menu.querySelectorAll('.menu-panel a[href^="#"]').forEach(a => a.addEventListener('click', () => close(menu)));
+  menu.addEventListener('click', (e) => { if (e.target === menu) close(menu); });
   addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAll(); });
   addEventListener('hashchange', closeAll);
 
