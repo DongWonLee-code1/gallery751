@@ -699,6 +699,69 @@
     "listedAt": "2026-10-02"
   },
   {
+    "id": "w-hs-23",
+    "artistId": "hissing",
+    "title": "대나무발과 몬스테라",
+    "year": 2026,
+    "medium": "캔버스에 아크릴",
+    "size": "19 × 27.3 cm",
+    "sizeHo": 3,
+    "price": 90000,
+    "status": "available",
+    "framed": null,
+    "images": [
+      "works/w-hs-23/main.jpg"
+    ],
+    "tags": [
+      "회화"
+    ],
+    "custody": "none",
+    "provenance": [],
+    "listedAt": "2026-10-10"
+  },
+  {
+    "id": "w-hs-24",
+    "artistId": "hissing",
+    "title": "빛만 머무는 방",
+    "year": 2026,
+    "medium": "캔버스에 아크릴·오일 파스텔",
+    "size": "89.5 × 60 cm",
+    "sizeHo": 30,
+    "price": 600000,
+    "status": "available",
+    "framed": null,
+    "images": [
+      "works/w-hs-24/main.jpg"
+    ],
+    "tags": [
+      "회화"
+    ],
+    "custody": "none",
+    "provenance": [],
+    "listedAt": "2026-10-10"
+  },
+  {
+    "id": "w-hs-25",
+    "artistId": "hissing",
+    "title": "언덕 위의 벤치",
+    "year": 2026,
+    "medium": "캔버스에 아크릴·오일 파스텔",
+    "size": "39.6 × 30 cm",
+    "sizeHo": 6,
+    "price": 180000,
+    "status": "available",
+    "framed": null,
+    "images": [
+      "works/w-hs-25/main.jpg"
+    ],
+    "tags": [
+      "회화"
+    ],
+    "custody": "none",
+    "provenance": [],
+    "listedAt": "2026-10-10"
+  },
+  {
     "id": "w-jsh-1824",
     "artistId": "jang-seungho",
     "title": "see1824",
