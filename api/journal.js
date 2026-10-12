@@ -10,6 +10,7 @@
  */
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
+import { clipTitle, clipDesc } from './_lib.js';
 
 const SITE = 'https://www.gallery751.com';
 
@@ -62,6 +63,7 @@ function listHTML(list) {
 
 /* <head> 의 제목·설명·공유 태그를 바꿉니다 */
 function setHead(html, { title, desc, url, image, type, jsonld }) {
+  title = clipTitle(title); desc = clipDesc(desc);
   const rep = (re, val) => { html = html.replace(re, val); };
   rep(/<title>[\s\S]*?<\/title>/, `<title>${esc(title)}</title>`);
   rep(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${esc(desc)}">`);

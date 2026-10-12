@@ -28,8 +28,26 @@ export const liveWorks = (works, artists) => {
   return works.filter(w => w && w.id && w.title && ok.has(w.artistId));
 };
 
+
+/* 네이버 서치어드바이저 기준: 제목 40자, 설명 80자 이내.
+   설명은 80자 안에서 마지막 문장 끝에서 자르고, 제목은 넘치면 " | Gallery 751" 꼬리를 뗍니다 */
+export function clipDesc(s, max = 80) {
+  s = String(s || '').replace(/\s+/g, ' ').trim();
+  if (s.length <= max) return s;
+  const cut = s.slice(0, max);
+  const end = Math.max(cut.lastIndexOf('다. '), cut.lastIndexOf('요. '), cut.lastIndexOf('. '));
+  return end > 20 ? cut.slice(0, end + 2).trim() : cut.slice(0, max - 1).trim() + '…';
+}
+export function clipTitle(t, max = 40) {
+  t = String(t || '');
+  if (t.length <= max) return t;
+  const bare = t.replace(/\s*[|—]\s*(Gallery 751|갤러리751)$/, '');
+  return bare.length <= max ? bare : bare.slice(0, max - 1) + '…';
+}
+
 /* <head> 의 제목·설명·공유 태그를 바꿉니다 */
 export function setHead(html, { title, desc, url, image, type = 'website', jsonld }) {
+  title = clipTitle(title); desc = clipDesc(desc);
   const rep = (re, val) => { html = html.replace(re, val); };
   rep(/<title>[\s\S]*?<\/title>/, `<title>${esc(title)}</title>`);
   rep(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${esc(desc)}">`);

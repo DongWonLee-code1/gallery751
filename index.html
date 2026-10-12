@@ -16,10 +16,10 @@
 <meta name="google-site-verification" content="82PTPWsOQYYs0uwQO8X-ptzY6KMRwMbTStdhBepCWO0">
 <meta name="naver-site-verification" content="4e95afc7b9e55c838025cf664a41a1fa0ae33025">
 <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://www.gallery751.com/#org", "name": "Gallery 751", "alternateName": ["갤러리751", "갤러리 751"], "url": "https://www.gallery751.com/", "logo": "https://www.gallery751.com/assets/icon-512.png", "email": "inquiries@gallery751.com", "description": "작가님이 직접 그린 원화를 가격과 판매 기록을 공개해 소개하고 판매하는 온라인 갤러리", "sameAs": ["https://www.instagram.com/gallery751__/", "https://www.threads.com/@gallery751__"]}, {"@type": "WebSite", "@id": "https://www.gallery751.com/#site", "name": "Gallery 751", "alternateName": "갤러리751", "url": "https://www.gallery751.com/", "inLanguage": "ko-KR", "publisher": {"@id": "https://www.gallery751.com/#org"}}]}</script>
-<title>갤러리751 Gallery 751 — 작가 원화 구매, 그림 구매 온라인 갤러리</title>
-<meta name="description" content="갤러리751(Gallery 751)은 작가님이 직접 그린 원화를 가격을 공개해 판매하는 온라인 갤러리입니다. 30만 원 이하 그림부터 있고, 진품증명서와 거래확인서를 함께 보내드립니다.">
-<meta property="og:title" content="갤러리751 Gallery 751 — 작가 원화 구매, 그림 구매 온라인 갤러리">
-<meta property="og:description" content="갤러리751(Gallery 751)은 작가님이 직접 그린 원화를 가격을 공개해 판매하는 온라인 갤러리입니다. 30만 원 이하 그림부터 있고, 진품증명서와 거래확인서를 함께 보내드립니다.">
+<title>갤러리751 Gallery 751 — 작가 원화·그림 구매</title>
+<meta name="description" content="갤러리751은 작가님이 직접 그린 원화를 가격을 공개해 판매합니다. 30만 원 이하 그림부터 있고 진품증명서를 함께 드립니다.">
+<meta property="og:title" content="갤러리751 Gallery 751 — 작가 원화·그림 구매">
+<meta property="og:description" content="갤러리751은 작가님이 직접 그린 원화를 가격을 공개해 판매합니다. 30만 원 이하 그림부터 있고 진품증명서를 함께 드립니다.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.gallery751.com/">
 <!-- 공유 미리보기는 사진 대신 브랜드 초록 단색(#19412D). 파일명을 바꿔 카카오·페이스북 캐시도 새로 받게 합니다 -->
@@ -3310,7 +3310,7 @@ function setOG(title, image){
   document.querySelector('meta[property="og:title"]')?.setAttribute('content', title);
   if (image) document.querySelector('meta[property="og:image"]')?.setAttribute('content', image);
 }
-function resetOG(){ setOG(OG_BASE.title, OG_BASE.image); document.title = '갤러리751 Gallery 751 — 작가 원화 구매, 그림 구매 온라인 갤러리'; }
+function resetOG(){ setOG(OG_BASE.title, OG_BASE.image); document.title = '갤러리751 Gallery 751 — 작가 원화·그림 구매'; }
 
 /* ─────────── 저널 ───────────
    journal.json 을 읽어 목록과 글을 그립니다.
@@ -3396,7 +3396,7 @@ function renderJournalPost(id){
 const PAGES = ['home','buy','artists','records','sell','show','how','contact','about','journal'];
 const pageEl = (id) => document.getElementById('page-' + id);
 const TITLES = {
-  home:'갤러리751 Gallery 751 — 작가 원화 구매, 그림 구매 온라인 갤러리',
+  home:'갤러리751 Gallery 751 — 작가 원화·그림 구매',
   buy:'그림 구매·원화 구매 — 작가 작품 가격 공개 | 갤러리751', artists:'작가 소개 — Gallery 751', records:'판매 기록 — Gallery 751', sell:'작품 올리기 — Gallery 751',
   show:'전시 참가 — Gallery 751', how:'구매 절차 — Gallery 751', contact:'문의하기 — Gallery 751',
   about:'Gallery 751 소개 — 한국 미술시장을 지금보다 크게 만들겠습니다',
@@ -4401,7 +4401,7 @@ function i18nLookup(raw){
 }
 
 const I18N_TITLES = {
-  '갤러리751 Gallery 751 — 작가 원화 구매, 그림 구매 온라인 갤러리': "Gallery 751 — An online gallery for original paintings",
+  '갤러리751 Gallery 751 — 작가 원화·그림 구매': "Gallery 751 — An online gallery for original paintings",
   '그림 구매·원화 구매 — 작가 작품 가격 공개 | 갤러리751':'Buy Art — Gallery 751',
   '판매 기록 — Gallery 751':'Sales Record — Gallery 751',
   '작품 올리기 — Gallery 751':'Submit Work — Gallery 751',

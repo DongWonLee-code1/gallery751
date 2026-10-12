@@ -54,7 +54,7 @@ export async function render(id) {
   const priced = works.filter(hasPrice).map(w => Number(w.price));
   const range = priced.length ? ` 작품 가격 ${Math.min(...priced).toLocaleString('ko-KR')}원부터.` : '';
   const lead = a.tagline || String(a.story || '').split('\n')[0];
-  const desc = `${a.name} 작가의 원화 ${works.length}점을 가격과 함께 소개합니다.${range} ${lead}`.trim().slice(0, 160);
+  const desc = `${a.name} 작가의 원화 ${works.length}점을 가격과 함께 소개합니다.${range} ${lead}`.trim();
 
   html = setHead(html, {
     title: `${a.name} 작가 — 작품·가격 | Gallery 751`, desc, url, image, type: 'profile',

@@ -12,23 +12,23 @@ import { workCard } from './artist.js';
 export const PAGES = {
   buy: {
     title: '그림 구매·원화 구매 — 작가 작품 가격 공개 | 갤러리751',
-    desc: '작가님이 직접 그린 원화를 가격을 모두 공개해 판매합니다. 그림 구매가 처음이셔도 크기(호수)와 호당 가격, 판매 기록을 보고 고르실 수 있고 진품증명서를 함께 보내드립니다.',
+    desc: '작가님 원화를 가격을 모두 공개해 판매합니다. 호수와 호당 가격, 판매 기록을 보고 고르실 수 있습니다.',
   },
   artists: {
-    title: '작가 소개 — Gallery 751',
-    desc: 'Gallery 751에 작품을 거는 작가님들을 소개합니다. 작가별 학력과 전시 이력, 작품과 판매 기록을 한곳에서 보실 수 있습니다.',
+    title: '작가 소개 — 갤러리751',
+    desc: '갤러리751에 작품을 거는 작가님들의 학력과 전시 이력, 작품과 판매 기록을 한곳에서 보실 수 있습니다.',
   },
   records: {
-    title: '판매 기록 — 어떤 그림이 언제 얼마에 팔렸는지 | Gallery 751',
-    desc: 'Gallery 751에서 팔린 그림은 모두 기록으로 남깁니다. 어떤 작가의 어떤 작품이 언제 얼마에 팔렸는지 누구나 확인하실 수 있습니다.',
+    title: '판매 기록 — 언제 얼마에 팔렸는지 공개 | 갤러리751',
+    desc: '갤러리751에서 팔린 그림은 어떤 작품이 언제 얼마에 팔렸는지 모두 기록으로 남겨 공개합니다.',
   },
   how: {
-    title: '구매 절차 — 원화 사는 법 | Gallery 751',
-    desc: '처음 원화를 사시는 분도 어렵지 않도록 구매 신청부터 입금, 포장·발송, 진품증명서와 거래확인서를 받으시기까지의 과정을 안내합니다.',
+    title: '구매 절차 — 원화 사는 법 | 갤러리751',
+    desc: '원화를 처음 사시는 분께 구매 신청부터 입금, 발송, 진품증명서를 받으시기까지의 과정을 안내합니다.',
   },
   about: {
     title: '갤러리751(Gallery 751) 소개 — 가격과 과정을 공개하는 갤러리',
-    desc: '갤러리751(Gallery 751)은 작품 가격과 판매 기록을 투명하게 공개해, 그림을 사는 분과 그리는 분이 서로를 만날 수 있게 하는 온라인 갤러리입니다.',
+    desc: '갤러리751은 작품 가격과 판매 기록을 공개해, 그림을 사는 분과 그리는 분을 이어 드리는 온라인 갤러리입니다.',
   },
 };
 
@@ -66,7 +66,7 @@ async function renderWork(id) {
   const image = w.images?.[0] ? abs(w.images[0]) : '';
   const spec = [w.medium, w.size && (w.size + (w.sizeHo ? `(${w.sizeHo}호)` : '')), w.year && `${w.year}년`].filter(Boolean).join(', ');
   const priceLine = hasPrice(w) ? ` 가격 ${won(w)}.` : '';
-  const desc = `${a.name} 작가의 원화 〈${w.title}〉. ${spec}.${priceLine} 진품증명서와 거래확인서를 함께 보내드립니다.`;
+  const desc = `${a.name} 작가의 원화 〈${w.title}〉. ${spec}.${priceLine} 진품증명서를 함께 드립니다.`;
   html = setHead(html, {
     title: `${w.title} — ${a.name} 작가 원화 | Gallery 751`, desc, url, image, type: 'product',
     jsonld: {
