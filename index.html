@@ -9,6 +9,7 @@
 <!-- 검색엔진 소유 확인 (구글 서치 콘솔, 네이버 서치어드바이저) — 지우면 확인이 풀립니다 -->
 <meta name="google-site-verification" content="82PTPWsOQYYs0uwQO8X-ptzY6KMRwMbTStdhBepCWO0">
 <meta name="naver-site-verification" content="4e95afc7b9e55c838025cf664a41a1fa0ae33025">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://www.gallery751.com/#org", "name": "Gallery 751", "alternateName": ["갤러리751", "갤러리 751"], "url": "https://www.gallery751.com/", "logo": "https://www.gallery751.com/assets/og-751-card.png", "email": "inquiries@gallery751.com", "description": "작가님이 직접 그린 원화를 가격과 판매 기록을 공개해 소개하고 판매하는 온라인 갤러리", "sameAs": ["https://www.instagram.com/gallery751__/", "https://www.threads.com/@gallery751__"]}, {"@type": "WebSite", "@id": "https://www.gallery751.com/#site", "name": "Gallery 751", "alternateName": "갤러리751", "url": "https://www.gallery751.com/", "inLanguage": "ko-KR", "publisher": {"@id": "https://www.gallery751.com/#org"}}]}</script>
 <title>Gallery 751 — 작가의 원화를 사는 온라인 갤러리</title>
 <meta name="description" content="작가님이 직접 그린 원화를 소개하고 판매합니다. 30만 원 이하 작품부터 있고, 진품증명서와 거래확인서를 함께 보내드립니다.">
 <meta property="og:title" content="Gallery 751 — 작가의 원화를 사는 온라인 갤러리">
@@ -3097,7 +3098,7 @@ function chartSVG(trades){
 
 function renderArtist(id){
   const a = artistOf(id);
-  if (!a) { location.hash = ''; return; }
+  if (!a) { history.replaceState(null, '', '/'); showPage('home'); return; }
   const mine = worksOf(id);
   const trades = tradesOf(id);
   const primary = trades.filter(t => t.type !== 'resale');
@@ -3192,7 +3193,7 @@ function renderArtist(id){
   nav.classList.add('solid');
   document.body.classList.add('subpage');
   scrollTo(0, 0);
-  document.title = `${a.name} — Gallery 751`;
+  document.title = `${a.name} 작가 — 작품·가격 | Gallery 751`;
   setOG(`${a.name} — Gallery 751`, mine[0]?.images?.[0] || a.portrait);
 }
 
@@ -3414,14 +3415,20 @@ function showArtist(id){
 /* 저널은 검색에 글마다 잡히도록 해시 대신 /journal, /journal/글ID 주소를 씁니다.
    예전 링크(#/journal/글ID)로 들어와도 같은 글이 열리고 주소만 새 형식으로 바뀝니다 */
 const JN_PATH = /^\/journal(?:\/([^/]+))?\/?$/;
+/* 작가 페이지도 검색에 작가마다 잡히도록 /artist/작가ID 주소를 씁니다 (예전 #/artist/작가ID 링크도 그대로 열림) */
+const AR_PATH = /^\/artist\/([^/]+)\/?$/;
 function route(){
   let h = location.hash;
   const jh = h.match(/^#\/journal(?:\/(.+))?$/);
+  const ah = h.match(/^#\/artist\/(.+)$/);
   if (jh) { history.replaceState(null, '', '/journal' + (jh[1] ? '/' + jh[1] : '')); h = ''; }
+  else if (ah) { if (location.pathname + location.hash !== '/artist/' + ah[1]) history.replaceState(null, '', '/artist/' + ah[1]); }
   else if (h && location.pathname !== '/') { history.replaceState(null, '', '/' + h); }
   if (!h) {
     const jm = location.pathname.match(JN_PATH);
+    const am = location.pathname.match(AR_PATH);
     if (jm) h = '#/journal' + (jm[1] ? '/' + jm[1] : '');
+    else if (am) h = '#/artist/' + am[1];
     else if (location.pathname !== '/') history.replaceState(null, '', '/');
   }
   const a = h.match(/^#\/artist\/(.+)$/);

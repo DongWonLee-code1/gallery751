@@ -1,5 +1,5 @@
 /**
- * /sitemap.xml — 사이트 첫 화면과 공개된 저널 글 목록
+ * /sitemap.xml — 사이트 첫 화면, 공개된 저널 글, 작가 페이지 목록
  * 검색엔진(구글 서치 콘솔, 네이버 서치어드바이저)에 이 주소를 등록합니다.
  */
 import { readFile } from 'node:fs/promises';
@@ -9,9 +9,10 @@ const SITE = 'https://www.gallery751.com';
 
 export default async function handler(req, res) {
   try {
-    const raw = await readFile(path.join(process.cwd(), 'journal.json'), 'utf8');
+    const read = (f) => readFile(path.join(process.cwd(), f), 'utf8').then(JSON.parse);
+    const [raw, artists, works] = await Promise.all(['journal.json', 'artists.json', 'works.json'].map(read));
     const now = new Date();
-    const posts = JSON.parse(raw)
+    const posts = raw
       .filter(p => p && p.id && p.title && (!p.date || new Date(p.date) <= now))
       .sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
     const url = (loc, lastmod) => `  <url><loc>${loc}</loc>${lastmod ? `<lastmod>${new Date(lastmod).toISOString()}</lastmod>` : ''}</url>`;
@@ -21,6 +22,11 @@ export default async function handler(req, res) {
       url(`${SITE}/`),
       url(`${SITE}/journal`, posts[0]?.date),
       ...posts.map(p => url(`${SITE}/journal/${encodeURIComponent(p.id)}`, p.date)),
+      /* 작품이 올라간 작가 페이지 — 가장 최근에 올린 작품 날짜를 lastmod 로 */
+      ...artists.filter(a => a && a.id && a.name && !String(a.id).startsWith('sample')).map(a => {
+        const last = works.filter(w => w.artistId === a.id).map(w => String(w.listedAt || '')).sort().pop();
+        return last !== undefined ? url(`${SITE}/artist/${encodeURIComponent(a.id)}`, last || null) : '';
+      }).filter(Boolean),
       '</urlset>',
     ].join('\n');
     res.setHeader('Content-Type', 'application/xml; charset=utf-8');

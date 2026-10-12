@@ -8,7 +8,10 @@
       "includeFiles": "{index.html,journal.json}"
     },
     "api/sitemap.js": {
-      "includeFiles": "journal.json"
+      "includeFiles": "{journal.json,artists.json,works.json}"
+    },
+    "api/artist.js": {
+      "includeFiles": "{index.html,artists.json,works.json}"
     }
   },
   "headers": [
@@ -34,6 +37,10 @@
     {
       "source": "/journal/:id",
       "destination": "/api/journal?id=:id"
+    },
+    {
+      "source": "/artist/:id",
+      "destination": "/api/artist?id=:id"
     },
     {
       "source": "/sitemap.xml",
