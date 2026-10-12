@@ -12,6 +12,12 @@
     },
     "api/artist.js": {
       "includeFiles": "{index.html,artists.json,works.json}"
+    },
+    "api/page.js": {
+      "includeFiles": "{index.html,artists.json,works.json}"
+    },
+    "api/rss.js": {
+      "includeFiles": "journal.json"
     }
   },
   "headers": [
@@ -41,6 +47,18 @@
     {
       "source": "/artist/:id",
       "destination": "/api/artist?id=:id"
+    },
+    {
+      "source": "/work/:id",
+      "destination": "/api/page?p=work&id=:id"
+    },
+    {
+      "source": "/:p(buy|artists|records|how|about)",
+      "destination": "/api/page?p=:p"
+    },
+    {
+      "source": "/rss.xml",
+      "destination": "/api/rss"
     },
     {
       "source": "/sitemap.xml",

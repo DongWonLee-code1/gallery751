@@ -1,5 +1,5 @@
 /**
- * /sitemap.xml — 사이트 첫 화면, 공개된 저널 글, 작가 페이지 목록
+ * /sitemap.xml — 사이트 첫 화면, 공개된 저널 글, 작가·작품 페이지, 주요 안내 화면 목록
  * 검색엔진(구글 서치 콘솔, 네이버 서치어드바이저)에 이 주소를 등록합니다.
  */
 import { readFile } from 'node:fs/promises';
@@ -27,6 +27,10 @@ export default async function handler(req, res) {
         const last = works.filter(w => w.artistId === a.id).map(w => String(w.listedAt || '')).sort().pop();
         return last !== undefined ? url(`${SITE}/artist/${encodeURIComponent(a.id)}`, last || null) : '';
       }).filter(Boolean),
+      /* 주요 안내 화면과 작품 한 점 페이지 */
+      ...['buy', 'artists', 'records', 'how', 'about'].map(p => url(`${SITE}/${p}`)),
+      ...works.filter(w => w && w.id && w.title && artists.some(a => a.id === w.artistId && !String(a.id).startsWith('sample')))
+        .map(w => url(`${SITE}/work/${encodeURIComponent(w.id)}`, w.listedAt || null)),
       '</urlset>',
     ].join('\n');
     res.setHeader('Content-Type', 'application/xml; charset=utf-8');
