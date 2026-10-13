@@ -40,7 +40,7 @@ const SPECS = {
       workId: 60, workTitle: 120, artist: 60, price: 20,
       name: 60, contact: 120, region: 120, place: 200,
       message: 1000, framed: 20, custody: 40,
-      /* 청약철회·재판매 2% 동의 여부는 분쟁 대비 증거이므로 반드시 기록합니다 */
+      /* 청약철회·재판매 2% 동의는 결제 단계에서 받습니다(예전 화면 호환용으로 필드만 유지) */
       agreeWithdraw: 10, agreeRoyalty: 10,
       /* 선택 — 구매 후 작가 소식 메일 수신 동의 */
       agreeNewsletter: 10,
@@ -213,9 +213,7 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'missing fields', fields: missing });
   }
 
-  if (type === 'purchase' && !(body.agreeWithdraw === true && body.agreeRoyalty === true)) {
-    return res.status(400).json({ error: 'consent required' });
-  }
+  /* 결제 오픈 전에는 구매 신청(예약)만 받습니다. 청약철회 제한 확인은 결제 단계에서 받습니다 */
 
   /* 긴 폼은 조건 확인이 필수입니다. 이메일만 남기는 의향 접수는 확정 후 안내 메일에서 다시 확인받습니다 */
   if (type === 'exhibition' && body.quick !== true && body.agreeTerms !== true) {
