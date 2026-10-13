@@ -1558,13 +1558,13 @@ body.subpage{padding-top:0}
   </div>
 </section>
 
-<!-- ══ 5. 수수료 · 초기 입점 작가 ══ -->
+<!-- ══ 5. 수수료 ══ -->
 <section class="sec sec--dark" id="founding">
   <div class="wrap">
     <span class="label rv">정산</span>
     <h2 class="rv" style="margin-top:14px;max-width:20ch">작가님이 60%를 가져갑니다.</h2>
     <p class="rv" style="margin-top:18px;max-width:48ch">
-      갤러리는 보통 40~50%를 가져갑니다.
+      갤러리는 보통 50~60%를 가져갑니다.
       올려두는 데 드는 비용은 없고, 팔리지 않으면 아무것도 받지 않습니다.
     </p>
     <p class="rv" style="margin-top:14px;max-width:48ch">
@@ -1579,9 +1579,6 @@ body.subpage{padding-top:0}
     </p>
     <p class="rv" style="margin-top:12px">
       <a class="tx" href="#/show">전시 참가 알아보기 <span class="arw">→</span></a>
-    </p>
-    <p class="rv" id="founding-lede" style="margin-top:14px;max-width:48ch">
-      초기 입점 작가 모집은 마감되었습니다. 먼저 함께해 주신 작가님들은 처음 약속대로 온라인 75%, 전시 85%를 그대로 받으십니다.
     </p>
 
     <div class="royalty rv">
@@ -1600,17 +1597,6 @@ body.subpage{padding-top:0}
       <p class="royalty-note">재판매 시에도 판매자가 받는 금액은 1차와 같은 60%입니다. 추가 부담은 없습니다.</p>
     </div>
 
-    <p class="rv" style="margin-top:26px;max-width:52ch">
-      첫 자리는 <strong>지아혁</strong> 작가입니다. 골드스미스에서 순수미술 학사를 수석으로 마쳤고,
-      CICA갤러리와 성수동, 서초 스페이스 엄에서 개인전을 열었으며 런던·파리·서울 단체전에 참여했습니다.
-      2023년 KBS 〈노머니 노아트〉에서 우승했습니다.
-      검증된 작가를 먼저 세워 기준선을 만들고, 그 아래로 소속 없는 작가들이 들어오는 순서입니다.
-    </p>
-
-    <div class="slots-head rv">
-      <span class="label">초기 입점 작가</span>
-    </div>
-    <div class="slots rv" id="slots"></div>
   </div>
 </section>
 
@@ -1639,7 +1625,6 @@ body.subpage{padding-top:0}
       <p>전시에서 팔리면,<br>작가님이 65%를 가져갑니다.</p>
       <p class="royalty-sub">
         온라인에 거는 것보다 5%p 더 받으십니다.
-        초기 입점 작가님은 85%입니다.
         작품 한 점만 팔려도 참가비는 돌아옵니다.
       </p>
       <div class="royalty-split">
@@ -1659,7 +1644,7 @@ body.subpage{padding-top:0}
       <li>참가 인원은 12명 내외입니다.</li>
       <li>한 분당 2~3점, 원화만 겁니다.</li>
       <li>참가비는 10만원 내외로 보고 있습니다.</li>
-      <li>판매 정산은 작가 65%, 초기 입점 작가는 85%입니다. 세금은 작가님 부담이며 정산할 때 공제합니다.</li>
+      <li>판매 정산은 작가 65%입니다. 세금은 작가님 부담이며 정산할 때 공제합니다.</li>
       <li>작품 수령·운송·설치·철수는 Gallery 751가 합니다.</li>
       <li>작품 사진 촬영과 소개글은 저희가 씁니다.</li>
       <li>팔린 작품에는 진품증명서와 거래확인서가 갑니다.</li>
@@ -2849,7 +2834,8 @@ function renderFounding(){
     const ig = a.instagram ? `<i>${esc(a.instagram)}</i>` : '';
     cells.push(`<button class="slot" type="button" data-artist="${esc(a.id)}"><b>${esc(a.name)}</b>${ig}</button>`);
   }
-  document.getElementById('slots').innerHTML = cells.join('');
+  const slotsEl = document.getElementById('slots');
+  if (slotsEl) slotsEl.innerHTML = cells.join('');
 
   /* 첫 화면 배지 — 모집이 끝나면 숨깁니다 */
   const hb = document.getElementById('hero-badge');
@@ -3150,7 +3136,7 @@ function renderArtist(id){
     <div class="a-head${a.portrait ? '' : ' noportrait'}">
       ${a.portrait ? `<img class="a-portrait" src="${esc(a.portrait)}" alt="${esc(a.name)}">` : ''}
       <div>
-        <div class="a-name"><h1>${esc(a.name)}</h1>${founding ? '<span class="a-founding">초기 입점 작가</span>' : ''}</div>
+        <div class="a-name"><h1>${esc(a.name)}</h1></div>
         ${a.tagline ? `<p class="a-tag">${esc(a.tagline)}</p>` : ''}
         ${a.education ? `<p class="a-edu">${esc(a.education)}</p>` : ''}
         ${metaBits.length ? `<p class="a-meta">${esc(metaBits.join(' · '))}</p>` : ''}
@@ -3699,13 +3685,13 @@ const I18N = {
     "전시는 사람이 그림 앞에 섭니다.": "At a show they stand in front of it.",
     "전시에서 팔리면,": "Sell at the show,",
     "작가님이 65%를 가져갑니다.": "and you keep 65%.",
-    "온라인에 거는 것보다 5%p 더 받으십니다. 초기 입점 작가님은 85%입니다. 작품 한 점만 팔려도 참가비는 돌아옵니다.": "Five points more than online. Founding artists keep 85%. One sale covers the participation fee.",
+    "온라인에 거는 것보다 5%p 더 받으십니다. 작품 한 점만 팔려도 참가비는 돌아옵니다.": "Five points more than online. One sale covers the participation fee.",
     "운송·설치·철수와 진품증명서·거래확인서는 Gallery 751가 맡습니다.": "Gallery 751 handles transport, install, take-down, and the certificate and transaction record.",
     "조건": "Terms",
     "참가 인원은 12명 내외입니다.": "Around twelve artists.",
     "한 분당 2~3점, 원화만 겁니다.": "Two or three works each, originals only.",
     "참가비는 10만원 내외로 보고 있습니다.": "We expect the fee to be around ₩100,000.",
-    "판매 정산은 작가 65%, 초기 입점 작가는 85%입니다. 세금은 작가님 부담이며 정산할 때 공제합니다.": "You keep 65% of a sale; founding artists keep 85%. Taxes are borne by the artist and deducted at payout.",
+    "판매 정산은 작가 65%입니다. 세금은 작가님 부담이며 정산할 때 공제합니다.": "You keep 65% of a sale. Taxes are borne by the artist and deducted at payout.",
     "작품 수령·운송·설치·철수는 Gallery 751가 합니다.": "Gallery 751 collects, transports, installs and takes down the work.",
     "작품 사진 촬영과 소개글은 저희가 씁니다.": "We photograph the work and write the text.",
     "팔린 작품에는 진품증명서와 거래확인서가 갑니다.": "Sold work ships with a certificate and a transaction record.",
@@ -3900,7 +3886,7 @@ const I18N = {
     "Gallery 751가 여는 전시에서 팔리면 65%입니다. 온라인에 거는 것보다 5%p 더 가져가십니다.": "Sell at a Gallery 751 exhibition and you keep 65%. Five points more than online.",
     "세금은 작가님 부담이며, Gallery 751 수수료에 붙는 부가세와 원천징수분을 뺀 금액을 정산해 드립니다.": "Taxes are borne by the artist: we deduct VAT on our commission and withholding tax before paying you out.",
     "전시 참가 알아보기": "About joining an exhibition",
-    "갤러리는 보통 40~50%를 가져갑니다. 올려두는 데 드는 비용은 없고, 팔리지 않으면 아무것도 받지 않습니다.": "Galleries usually take 40–50%. Listing costs nothing, and if it does not sell we take nothing.",
+    "갤러리는 보통 50~60%를 가져갑니다. 올려두는 데 드는 비용은 없고, 팔리지 않으면 아무것도 받지 않습니다.": "Galleries usually take 50–60%. Listing costs nothing, and if it does not sell we take nothing.",
     "초기 입점 작가 모집은 마감되었습니다. 먼저 함께해 주신 작가님들은 처음 약속대로 온라인 75%, 전시 85%를 그대로 받으십니다.": "Founding artist intake is now closed. Those who joined first keep what we promised: 75% online, 85% at an exhibition.",
     "그리고 이 작품이 다시 팔릴 때마다,": "And every time this work is sold again,",
     "작가에게 판매가의 2%를 드립니다.": "the artist receives 2% of the sale price.",
