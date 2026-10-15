@@ -37,7 +37,7 @@ const SPECS = {
     to: 'inquiries',
     required: ['name', 'contact', 'region'],
     fields: {
-      workId: 60, workTitle: 120, artist: 60, price: 20,
+      workId: 60, workNo: 20, workTitle: 120, artist: 60, price: 20,
       name: 60, contact: 120, region: 120, place: 200,
       message: 1000, framed: 20, custody: 40,
       /* 청약철회·재판매 2% 동의는 결제 단계에서 받습니다(예전 화면 호환용으로 필드만 유지) */
@@ -45,7 +45,7 @@ const SPECS = {
       /* 선택 — 구매 후 작가 소식 메일 수신 동의 */
       agreeNewsletter: 10,
     },
-    subject: (r) => `[구매신청] 「${r.workTitle || '작품'}」 · ${r.artist || ''} · ${r.name}`,
+    subject: (r) => `[구매신청] ${r.workNo ? r.workNo + ' ' : ''}「${r.workTitle || '작품'}」 · ${r.artist || ''} · ${r.name}`,
   },
   storage_notify: {
     to: 'inquiries',

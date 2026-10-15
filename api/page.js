@@ -34,6 +34,7 @@ export const PAGES = {
 
 function workHTML(w, a) {
   const rows = [
+    ['작품 번호', esc(w.no || '')],
     ['작가', a ? `<a href="/artist/${esc(a.id)}">${esc(a.name)}</a>` : ''],
     ['제작 연도', esc(w.year || '')],
     ['재료', esc(w.medium || '')],
@@ -116,9 +117,24 @@ export async function render(p, id) {
   return { status: 404, html: noindex(tpl) };
 }
 
+/* 작품 옆 QR 이 여는 짧은 주소 /w/G751-0012 → /work/작품ID 로 넘깁니다. ?at=설치ID 는 그대로 붙여 보냅니다 */
+async function redirectNo(req, res, no) {
+  const [artists, works] = await load('artists.json', 'works.json');
+  const w = liveWorks(works, artists).find(x => String(x.no || '').toUpperCase() === no.toUpperCase());
+  const at = typeof req.query?.at === 'string' ? req.query.at.replace(/[^\w가-힣-]/g, '').slice(0, 24) : '';
+  const to = w ? `/work/${encodeURIComponent(w.id)}${at ? `?at=${encodeURIComponent(at)}` : ''}` : '/buy';
+  res.setHeader('Cache-Control', 'no-store');
+  res.writeHead(302, { Location: to });
+  res.end();
+}
+
 export default async function handler(req, res) {
   const p = typeof req.query?.p === 'string' ? req.query.p : '';
   const id = typeof req.query?.id === 'string' ? req.query.id : '';
+  if (p === 'no') {
+    try { return await redirectNo(req, res, id); }
+    catch (e) { console.error('no', e); res.writeHead(302, { Location: '/buy' }); return res.end(); }
+  }
   try { send(res, await render(p, id)); }
   catch (e) { console.error('page', e); res.status(500).send('페이지를 불러오지 못했습니다.'); }
 }

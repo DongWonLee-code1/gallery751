@@ -2460,7 +2460,9 @@ const VISIT = (() => {
     [/threads\.(net|com)$/, 'threads'], [/(^|\.)google\./, 'google'], [/eopla\.net$/, 'eo'], [/openads\.co\.kr$/, 'openads'],
     [/brunch\.co\.kr$/, 'brunch'], [/kakao/, 'kakao'], [/facebook\.com$/, 'facebook'], [/daum\.net$/, 'daum']];
   const outside = host && !/(^|\.)gallery751\.com$/.test(host) && host !== location.hostname;
-  const tag = (q.get('src') || q.get('utm_source') || '').trim().slice(0, 30)
+  /* 작품 옆 QR 은 /w/작품번호?at=설치ID 로 들어옵니다. 설치 장소를 유입 경로로 남겨 어느 자리에서 팔렸는지 봅니다 */
+  const at = (q.get('at') || '').trim().slice(0, 24);
+  const tag = (q.get('src') || q.get('utm_source') || (at ? 'QR ' + at : '')).trim().slice(0, 30)
     || (outside ? (HOSTS.find(([re]) => re.test(host))?.[1] || host) : '');
   const KEY = 'g751-visit';
   let saved = null;
@@ -2873,6 +2875,7 @@ function detailHTML(w){
       <h3 id="m-title">${esc(w.title)}</h3>
       <p class="m-artist"><a class="go" data-goartist="${esc(w.artistId)}" style="text-decoration:underline;text-underline-offset:3px;cursor:pointer">${esc(a?.name||'')}</a></p>
       <div class="m-spec">
+        ${w.no ? `<div><i>작품 번호</i><span>${esc(w.no)}</span></div>` : ''}
         ${w.year ? `<div><i>제작</i><span>${esc(w.year)}</span></div>` : ''}
         ${w.medium ? `<div><i>재료</i><span>${esc(w.medium)}</span></div>` : ''}
         ${w.size || w.sizeHo ? `<div><i>크기</i><span>${esc(w.size||'')}${w.sizeHo ? ` (${esc(w.sizeHo)}호)` : ''}</span></div>` : ''}
@@ -2897,6 +2900,7 @@ function buyFormHTML(w){
     <form id="buy-form">
       <input type="hidden" name="type" value="purchase">
       <input type="hidden" name="workId" value="${esc(w.id)}">
+      <input type="hidden" name="workNo" value="${esc(w.no||'')}">
       <input type="hidden" name="workTitle" value="${esc(w.title)}">
       <input type="hidden" name="artist" value="${esc(a?.name||'')}">
       <input type="hidden" name="price" value="${esc(w.price)}">
@@ -3965,6 +3969,7 @@ const I18N = {
     "Gallery 751에서 일어난 거래만 기록합니다.": "We record only sales that happened on Gallery 751.",
     "제작": "Year",
     "재료": "Medium",
+    "작품 번호": "Work No.",
     "한지에 먹과 아크릴": "Ink and acrylic on hanji",
     "크기": "Size",
     "액자": "Frame",
