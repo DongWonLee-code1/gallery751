@@ -1154,5 +1154,101 @@
     "custody": "none",
     "provenance": [],
     "listedAt": "2026-10-20"
+  },
+  {
+    "id": "w-isy-01",
+    "no": "G751-0051",
+    "artistId": "in-soyeon",
+    "title": "무제 (야자수)",
+    "year": null,
+    "medium": "종이에 수채",
+    "size": "",
+    "sizeHo": null,
+    "price": null,
+    "status": "available",
+    "framed": null,
+    "images": [
+      "works/w-isy-01/main.jpg",
+      "works/w-isy-01/view.jpg"
+    ],
+    "tags": [
+      "회화",
+      "풍경"
+    ],
+    "custody": "none",
+    "provenance": [],
+    "listedAt": "2026-10-22"
+  },
+  {
+    "id": "w-isy-02",
+    "no": "G751-0052",
+    "artistId": "in-soyeon",
+    "title": "무제 (세 그루의 야자수)",
+    "year": null,
+    "medium": "종이에 수채",
+    "size": "",
+    "sizeHo": null,
+    "price": null,
+    "status": "available",
+    "framed": null,
+    "images": [
+      "works/w-isy-02/main.jpg",
+      "works/w-isy-02/view.jpg"
+    ],
+    "tags": [
+      "회화",
+      "풍경"
+    ],
+    "custody": "none",
+    "provenance": [],
+    "listedAt": "2026-10-22"
+  },
+  {
+    "id": "w-isy-03",
+    "no": "G751-0053",
+    "artistId": "in-soyeon",
+    "title": "무제 (청록)",
+    "year": null,
+    "medium": "종이에 수채",
+    "size": "",
+    "sizeHo": null,
+    "price": null,
+    "status": "available",
+    "framed": null,
+    "images": [
+      "works/w-isy-03/main.jpg",
+      "works/w-isy-03/view.jpg"
+    ],
+    "tags": [
+      "회화",
+      "추상"
+    ],
+    "custody": "none",
+    "provenance": [],
+    "listedAt": "2026-10-22"
+  },
+  {
+    "id": "w-isy-04",
+    "no": "G751-0054",
+    "artistId": "in-soyeon",
+    "title": "무제 (보라)",
+    "year": 2026,
+    "medium": "종이에 수채",
+    "size": "",
+    "sizeHo": null,
+    "price": null,
+    "status": "available",
+    "framed": null,
+    "images": [
+      "works/w-isy-04/main.jpg",
+      "works/w-isy-04/view.jpg"
+    ],
+    "tags": [
+      "회화",
+      "추상"
+    ],
+    "custody": "none",
+    "provenance": [],
+    "listedAt": "2026-10-22"
   }
 ]
