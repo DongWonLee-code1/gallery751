@@ -1068,6 +1068,7 @@ body.modal-open{overflow:hidden}
 body.subpage{padding-top:0}
 .pagehead{padding-top:clamp(96px,10vw,150px);padding-bottom:clamp(36px,4.4vw,72px)}
 .pagehead h1{font-size:clamp(30px,3.2vw,52px);font-weight:400;letter-spacing:-.02em;margin-top:12px}
+.pagehead .lead{margin-top:16px;max-width:46ch;color:var(--ink-2);font-size:var(--t-body);line-height:1.7}
 /* 페이지 제목 바로 아래 섹션만 위 여백을 줄입니다 */
 .pagehead + .sec{padding-top:clamp(24px,3vw,48px)}
 /* 페이지 첫 블록(.wrap)과 다음 섹션이 붙지 않게 */
@@ -1245,7 +1246,7 @@ body.subpage{padding-top:0}
 
 <nav class="nav" id="nav">
   <button class="nav-ic nav-burger" id="menu-open" type="button" aria-label="메뉴 열기" aria-controls="menu" aria-expanded="false"><span></span><span></span></button>
-  <a class="mark" href="#/home">Gallery 751</a>
+  <a class="mark" href="/">Gallery 751</a>
   <button class="nav-ic" id="search-open" type="button" aria-label="검색" aria-controls="search"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></button>
 </nav>
 
@@ -1256,16 +1257,16 @@ body.subpage{padding-top:0}
       <button class="langbtn" id="langbtn" type="button" data-i18n-skip aria-label="View in English">EN</button>
     </div>
     <nav class="menu-links" aria-label="주 메뉴">
-      <a href="#/buy">작품</a>
-      <a href="#/artists">작가</a>
-      <a href="#/records">판매 기록</a>
+      <a href="/buy">작품</a>
+      <a href="/artists">작가</a>
+      <a href="/records">판매 기록</a>
       <a href="#/show">전시</a>
-      <a href="#/journal">저널</a>
+      <a href="/journal">저널</a>
       <a href="#/sell">작가 지원</a>
     </nav>
     <div class="menu-sub">
-      <a href="#/how">구매 안내</a>
-      <a href="#/about">소개</a>
+      <a href="/how">구매 안내</a>
+      <a href="/about">소개</a>
       <a href="#/contact">문의</a>
     </div>
     <div class="menu-foot">
@@ -1315,7 +1316,7 @@ body.subpage{padding-top:0}
 
 <section class="g-sec" id="home-works-sec" hidden>
   <div class="g-wrap">
-    <div class="g-head sx"><h2>소개 작품</h2><a class="g-more" href="#/buy">전체 보기</a></div>
+    <div class="g-head sx"><h2>소개 작품</h2><a class="g-more" href="/buy">전체 보기</a></div>
     <div class="g-grid" id="home-works"></div>
   </div>
 </section>
@@ -1360,7 +1361,7 @@ body.subpage{padding-top:0}
 </main>
 
 <main class="page" id="page-buy" hidden>
-  <div class="wrap pagehead"><span class="label">작가별 작품</span><h1>작품 구매하기</h1></div>
+  <div class="wrap pagehead"><span class="label">작가별 작품</span><h1>원화 구매</h1><p class="lead">작가님이 직접 그린 원화를 가격을 모두 공개해 판매합니다. 호수와 호당 가격, 판매 기록을 보고 고르실 수 있고 진품증명서를 함께 드립니다.</p></div>
   <div class="wrap">
     <div class="atabs" id="f-artist" role="group" aria-label="작가로 거르기" hidden></div>
     <div class="filters" id="filters" hidden>
@@ -2053,7 +2054,7 @@ body.subpage{padding-top:0}
 
 <!-- ══ 하단 2분할 CTA ══ -->
 <div class="cta2">
-  <a class="lt" href="#/buy">작품 보러 가기 <span class="arw">→</span></a>
+  <a class="lt" href="/buy">작품 보러 가기 <span class="arw">→</span></a>
   <a class="dk" href="#/sell">내 작품 올리기 <span class="arw">→</span></a>
 </div>
 
@@ -3072,7 +3073,7 @@ function renderArtist(id){
       <span class="label">판매 기록</span>
       ${trades.length ? ledgerHTML(trades.slice().reverse(), false)
         : `<p class="ledger-empty">아직 Gallery 751에서 판매된 기록이 없습니다.</p>`}
-      <a class="ledger-more" href="#/records">전체 판매 기록 보기 →</a>
+      <a class="ledger-more" href="/records">전체 판매 기록 보기 →</a>
     </div>`;
   const soldWorks = mine.filter(w => (w.provenance || []).length).length;
   const lastT = trades[trades.length - 1];
@@ -3262,7 +3263,7 @@ function renderJournalList(){
   const list = jnVisible();
   grid.innerHTML = list.length ? list.map(p => {
     const img = jnHero(p);
-    return `<a class="jn-card" href="#/journal/${encodeURIComponent(p.id)}">
+    return `<a class="jn-card" href="/journal/${encodeURIComponent(p.id)}">
       <div class="jn-thumb${img ? '' : ' txt'}">${img
         ? `<img src="${esc(img)}" alt="" loading="lazy">`
         : `<span>${esc(jnKicker(p))}</span><p>${esc(p.summary || p.title)}</p>`}</div>
@@ -3307,7 +3308,7 @@ function renderJournalPost(id){
   const unit = p.series ? '편' : '글';
 
   post.innerHTML = `
-    <a class="jn-back" href="#/journal">← 저널</a>
+    <a class="jn-back" href="/journal">← 저널</a>
     <header class="jn-head">
       <span class="label">${esc(jnKicker(p))}</span>
       <h1>${esc(p.title)}</h1>
@@ -3316,8 +3317,8 @@ function renderJournalPost(id){
     ${hero ? `<figure class="jn-hero"><img src="${esc(hero)}" alt=""></figure>` : ''}
     <div class="jn-body">${body}${links}${src.length ? `<p class="jn-src">${src.join('<br>')}</p>` : ''}</div>
     ${prev || next ? `<nav class="jn-pn">
-      ${prev ? `<a href="#/journal/${encodeURIComponent(prev.id)}"><span>← 이전 ${unit}</span><b>${esc(prev.title)}</b></a>` : ''}
-      ${next ? `<a class="nx" href="#/journal/${encodeURIComponent(next.id)}"><span>다음 ${unit} →</span><b>${esc(next.title)}</b></a>` : ''}
+      ${prev ? `<a href="/journal/${encodeURIComponent(prev.id)}"><span>← 이전 ${unit}</span><b>${esc(prev.title)}</b></a>` : ''}
+      ${next ? `<a class="nx" href="/journal/${encodeURIComponent(next.id)}"><span>다음 ${unit} →</span><b>${esc(next.title)}</b></a>` : ''}
     </nav>` : ''}`;
 
   document.title = `${p.title} — Gallery 751`;
@@ -3339,7 +3340,7 @@ function showPage(id){
   PAGES.forEach(k => { const el = pageEl(k); if (el) el.hidden = (k !== id); });
   artistView.hidden = true; artistView.innerHTML = '';
   document.querySelectorAll('.nav [data-tab]').forEach(a =>
-    a.classList.toggle('on', a.getAttribute('href') === '#/' + id));
+    a.classList.toggle('on', a.getAttribute('href') === '#/' + id || a.getAttribute('href') === '/' + id));
   document.title = TITLES[id] || TITLES.home;
   document.querySelector('link[rel="canonical"]')?.setAttribute('href', 'https://www.gallery751.com' + location.pathname);
   /* 홈이 아닌 페이지는 히어로가 없으므로 네비를 밝은 유리로 고정합니다 */
@@ -3420,9 +3421,24 @@ addEventListener('keydown', (e) => {
 });
 addEventListener('hashchange', route);
 addEventListener('popstate', route);
-/* /journal 주소에 있을 때 해시 링크(#/buy 등)를 누르면 새로고침 없이 루트 주소로 옮겨 갑니다 */
+/* 사이트 안 링크는 새로고침 없이 화면만 바꿉니다.
+   - 진짜 주소 링크(/buy, /journal/글ID 등): 검색엔진이 따라 들어갈 수 있게 href 는 진짜 주소로 두고, 누르면 주소만 바꿔 같은 화면을 엽니다
+   - 해시 링크(#/sell 등)를 /journal 같은 진짜 주소에서 누르면 루트 주소로 옮겨 갑니다 */
+const SPA_PATH = (p) => p === '/' || JN_PATH.test(p) || AR_PATH.test(p) || WK_PATH.test(p) || PG_PATH.test(p);
 document.addEventListener('click', (e) => {
-  if (location.pathname === '/' || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+  if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+  const pa = e.target.closest('a[href^="/"]');
+  if (pa && !pa.target && !pa.hasAttribute('download')) {
+    const href = pa.getAttribute('href');
+    if (href.startsWith('//')) return;
+    const u = new URL(href, location.origin);
+    if (!SPA_PATH(u.pathname)) return;
+    e.preventDefault();
+    if (u.pathname + u.search + u.hash !== location.pathname + location.search + location.hash) history.pushState(null, '', u.pathname + u.search + u.hash);
+    dispatchEvent(new HashChangeEvent('hashchange'));
+    return;
+  }
+  if (location.pathname === '/') return;
   const a = e.target.closest('a[href^="#"]');
   if (!a || a.target) return;
   e.preventDefault();
@@ -3605,6 +3621,8 @@ document.getElementById('party')?.addEventListener('submit', async function(e){
 const I18N = {
   text: {
     "작품 구매하기": "Buy Art",
+    "원화 구매": "Buy Original Art",
+    "작가님이 직접 그린 원화를 가격을 모두 공개해 판매합니다. 호수와 호당 가격, 판매 기록을 보고 고르실 수 있고 진품증명서를 함께 드립니다.": "Original works painted by our artists, sold with every price made public. Compare sizes, price per size unit and past sales — each work comes with a certificate of authenticity.",
     "구매 절차": "How to Buy",
     "문의하기": "Contact",
     "소개": "About",
@@ -4464,7 +4482,7 @@ addEventListener('hashchange', () => {
   openM.addEventListener('click', () => open(menu));
   openS.addEventListener('click', () => { open(search, q); render(); });
   document.querySelectorAll('[data-close-overlay]').forEach(b => b.addEventListener('click', closeAll));
-  menu.querySelectorAll('.menu-panel a[href^="#"]').forEach(a => a.addEventListener('click', () => close(menu)));
+  menu.querySelectorAll('.menu-panel a[href^="#"], .menu-panel a[href^="/"]').forEach(a => a.addEventListener('click', () => close(menu)));
   menu.addEventListener('click', (e) => { if (e.target === menu) close(menu); });
   addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAll(); });
   addEventListener('hashchange', closeAll);
