@@ -4,13 +4,15 @@
  */
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
+import { liveCols } from './_lib.js';
 
 const SITE = 'https://www.gallery751.com';
 
 export default async function handler(req, res) {
   try {
     const read = (f) => readFile(path.join(process.cwd(), f), 'utf8').then(JSON.parse);
-    const [raw, artists, works] = await Promise.all(['journal.json', 'artists.json', 'works.json'].map(read));
+    const [raw, artists, works, cols] = await Promise.all(['journal.json', 'artists.json', 'works.json', 'collections.json'].map(read));
+    const live = works.filter(w => w && w.id && w.title && artists.some(a => a.id === w.artistId && !String(a.id).startsWith('sample')));
     const now = new Date();
     const posts = raw
       .filter(p => p && p.id && p.title && (!p.date || new Date(p.date) <= now))
@@ -29,6 +31,8 @@ export default async function handler(req, res) {
       }).filter(Boolean),
       /* 주요 안내 화면과 작품 한 점 페이지 */
       ...['buy', 'artists', 'records', 'how', 'about'].map(p => url(`${SITE}/${p}`)),
+      /* 상황별 작품 모음 — 작품이 충분한 모음만 (작품이 새로 올라오면 자동으로 늘어남) */
+      ...liveCols(cols, live).map(c => url(`${SITE}/buy/${c.slug}`, c.works.map(w => String(w.listedAt || '')).sort().pop() || null)),
       ...works.filter(w => w && w.id && w.title && artists.some(a => a.id === w.artistId && !String(a.id).startsWith('sample')))
         .map(w => url(`${SITE}/work/${encodeURIComponent(w.id)}`, w.listedAt || null)),
       '</urlset>',

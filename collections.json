@@ -1,0 +1,74 @@
+[
+  {
+    "slug": "under-30",
+    "label": "30만 원 이하",
+    "title": "30만 원 이하 그림 구매 — 작가 원화 | 갤러리751",
+    "h1": "30만 원 이하 원화",
+    "lead": "30만 원 이하로 구매하실 수 있는 작가님 원화를 모았습니다. 작품마다 가격과 호당 가격을 공개하며, 진품증명서를 함께 드립니다.",
+    "filter": { "priceMax": 300000 },
+    "en": { "label": "Under ₩300,000", "h1": "Original art under ₩300,000", "lead": "Original works you can buy for ₩300,000 or less. Every price and price per size unit is public, and each work comes with a certificate of authenticity." }
+  },
+  {
+    "slug": "under-100",
+    "label": "100만 원 이하",
+    "title": "100만 원 이하 그림 구매 — 작가 원화 | 갤러리751",
+    "h1": "100만 원 이하 원화",
+    "lead": "100만 원 이하로 구매하실 수 있는 작가님 원화를 모았습니다. 처음 원화를 사시는 분이 많이 고르시는 가격대입니다.",
+    "filter": { "priceMax": 1000000 },
+    "en": { "label": "Under ₩1,000,000", "h1": "Original art under ₩1,000,000", "lead": "Original works priced at ₩1,000,000 or less — the range most first-time collectors start with." }
+  },
+  {
+    "slug": "gift",
+    "label": "집들이·선물",
+    "title": "집들이 선물 그림 — 작가 원화 구매 | 갤러리751",
+    "h1": "선물하기 좋은 그림",
+    "lead": "집들이, 개업, 생일 선물로 드리기 좋은 크기와 가격의 원화를 모았습니다. 10호 이하, 50만 원 이하 작품이며 진품증명서를 함께 드립니다.",
+    "filter": { "priceMax": 500000, "hoMax": 10 },
+    "en": { "label": "Gifts", "h1": "Art to give as a gift", "lead": "Originals in a size and price that suit a housewarming, opening or birthday gift — 10 ho or smaller and ₩500,000 or less, with a certificate of authenticity." }
+  },
+  {
+    "slug": "small",
+    "label": "작은 그림",
+    "title": "작은 그림 구매 — 10호 이하 원화 | 갤러리751",
+    "h1": "작은 그림",
+    "lead": "책상이나 선반, 좁은 벽에도 걸 수 있는 10호 이하 원화입니다. 10호는 약 53 × 45cm 크기입니다.",
+    "filter": { "hoMax": 10 },
+    "en": { "label": "Small works", "h1": "Small works", "lead": "Originals of 10 ho or smaller that fit a desk, a shelf or a narrow wall. A 10 ho canvas is about 53 × 45 cm." }
+  },
+  {
+    "slug": "living-room",
+    "label": "거실 그림",
+    "title": "거실 그림 구매 — 20호 이상 원화 | 갤러리751",
+    "h1": "거실에 거는 그림",
+    "lead": "소파 위나 거실 벽처럼 넓은 벽에 어울리는 20호 이상 원화입니다. 20호는 약 73 × 61cm 크기입니다.",
+    "filter": { "hoMin": 20 },
+    "en": { "label": "Living room", "h1": "Art for the living room", "lead": "Originals of 20 ho or larger for a wide wall, such as above a sofa. A 20 ho canvas is about 73 × 61 cm." }
+  },
+  {
+    "slug": "oil",
+    "label": "유화",
+    "title": "유화 구매 — 작가 유화 원화 | 갤러리751",
+    "h1": "유화",
+    "lead": "캔버스와 패널에 유채로 그린 작가님 원화를 모았습니다. 작품마다 가격과 호당 가격을 공개합니다.",
+    "filter": { "medium": ["유채"] },
+    "en": { "label": "Oil", "h1": "Oil paintings", "lead": "Original oil paintings on canvas and panel. Every price and price per size unit is public." }
+  },
+  {
+    "slug": "acrylic",
+    "label": "아크릴화",
+    "title": "아크릴화 구매 — 작가 원화 | 갤러리751",
+    "h1": "아크릴화",
+    "lead": "아크릴 물감으로 그린 작가님 원화를 모았습니다. 작품마다 가격과 호당 가격을 공개합니다.",
+    "filter": { "medium": ["아크릴"] },
+    "en": { "label": "Acrylic", "h1": "Acrylic paintings", "lead": "Original works painted in acrylic. Every price and price per size unit is public." }
+  },
+  {
+    "slug": "korean-painting",
+    "label": "동양화·한지",
+    "title": "동양화 구매 — 한지·장지 원화 | 갤러리751",
+    "h1": "동양화·한지 작품",
+    "lead": "한지와 장지, 먹과 동양화 안료로 작업한 작가님 원화를 모았습니다.",
+    "filter": { "medium": ["한지", "장지", "먹", "동양화"] },
+    "en": { "label": "Korean paper & ink", "h1": "Korean painting on hanji", "lead": "Original works on hanji and jangji paper, in ink and traditional pigments." }
+  }
+]

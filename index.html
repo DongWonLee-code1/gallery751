@@ -1068,6 +1068,10 @@ body.modal-open{overflow:hidden}
 body.subpage{padding-top:0}
 .pagehead{padding-top:clamp(96px,10vw,150px);padding-bottom:clamp(36px,4.4vw,72px)}
 .pagehead h1{font-size:clamp(30px,3.2vw,52px);font-weight:400;letter-spacing:-.02em;margin-top:12px}
+.pagehead .cols{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.pagehead .cols:empty{display:none}
+.pagehead .cols a{font-size:14px;padding:7px 14px;border:1px solid var(--line-2);border-radius:999px;color:var(--ink-2);text-decoration:none;white-space:nowrap}
+.pagehead .cols a[aria-current="page"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
 .pagehead .lead{margin-top:16px;max-width:46ch;color:var(--ink-2);font-size:var(--t-body);line-height:1.7}
 /* 페이지 제목 바로 아래 섹션만 위 여백을 줄입니다 */
 .pagehead + .sec{padding-top:clamp(24px,3vw,48px)}
@@ -1361,7 +1365,7 @@ body.subpage{padding-top:0}
 </main>
 
 <main class="page" id="page-buy" hidden>
-  <div class="wrap pagehead"><span class="label">작가별 작품</span><h1>원화 구매</h1><p class="lead">작가님이 직접 그린 원화를 가격을 모두 공개해 판매합니다. 호수와 호당 가격, 판매 기록을 보고 고르실 수 있고 진품증명서를 함께 드립니다.</p></div>
+  <div class="wrap pagehead"><span class="label" id="buy-label">작가별 작품</span><h1 id="buy-h1">원화 구매</h1><p class="lead" id="buy-lead">작가님이 직접 그린 원화를 가격을 모두 공개해 판매합니다. 호수와 호당 가격, 판매 기록을 보고 고르실 수 있고 진품증명서를 함께 드립니다.</p><nav class="cols" id="buy-cols" aria-label="상황별 작품 모음"></nav></div>
   <div class="wrap">
     <div class="atabs" id="f-artist" role="group" aria-label="작가로 거르기" hidden></div>
     <div class="filters" id="filters" hidden>
@@ -2456,6 +2460,7 @@ const SRC = {
   artists:  DEMO ? 'artists.sample.json'          : 'artists.json',
   founding: DEMO ? 'founding-artists.sample.json' : 'founding-artists.json',
   journal:  'journal.json',
+  collections: 'collections.json',
 };
 
 /* 작품 가격 표기 — priceLabel 이 있으면 그 문구를 씁니다 (예: 가격 협의 중) */
@@ -2465,7 +2470,7 @@ const esc  = (v) => String(v ?? '').replace(/[&<>"']/g, c =>
   ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
 const ymd  = (d) => String(d || '').replace(/-/g, '.');
 
-let WORKS = [], ARTISTS = [], FOUNDING = { capacity: 10, artists: [] }, JOURNAL = [];
+let WORKS = [], ARTISTS = [], FOUNDING = { capacity: 10, artists: [] }, JOURNAL = [], COLS = [];
 const artistOf = (id) => ARTISTS.find(a => a.id === id);
 const worksOf  = (id) => WORKS.filter(w => w.artistId === id);
 
@@ -2529,7 +2534,7 @@ function cardHTML(w){
   const tag = a?.tagline ? `<span class="card-tag">${esc(a.tagline)}</span>` : '';
   return `<button class="card" type="button" data-id="${esc(w.id)}" data-status="${esc(w.status||'available')}">
     <span class="card-img">${badge}
-      <img src="${esc(w.images?.[0]||'')}" alt="${esc(w.title)} — ${esc(a?.name||'')}" loading="lazy" decoding="async">
+      <img src="${esc(w.images?.[0]||'')}" alt="${esc(a?.name ? a.name + ' 작가 원화 ' : '')}〈${esc(w.title)}〉" loading="lazy" decoding="async">
     </span>
     <span class="card-meta">
       <span class="card-title">${esc(w.title)}</span>
@@ -2542,10 +2547,44 @@ function cardHTML(w){
   </button>`;
 }
 
+/* ─────────── 상황별 작품 모음 (/buy/모음ID) ───────────
+   collections.json 의 조건으로 작품을 거릅니다. 작품이 MIN_COL 점 이상인 모음만 링크를 보입니다.
+   같은 조건 함수가 api/_lib.js(colMatch)에도 있으니 바꿀 때 둘 다 고칩니다 */
+const MIN_COL = 3;
+let curCol = '';
+const BUY_HEAD = { label: '작가별 작품', h1: '원화 구매', lead: '작가님이 직접 그린 원화를 가격을 모두 공개해 판매합니다. 호수와 호당 가격, 판매 기록을 보고 고르실 수 있고 진품증명서를 함께 드립니다.' };
+function colMatch(w, f = {}){
+  if (w.status === 'sold') return false;
+  const p = Number(w.price), h = Number(w.sizeHo), has = w.price !== null && w.price !== undefined && w.price !== '';
+  if (f.priceMax != null && !(has && p <= f.priceMax)) return false;
+  if (f.priceMin != null && !(has && p >= f.priceMin)) return false;
+  if (f.hoMax != null && !(h > 0 && h <= f.hoMax)) return false;
+  if (f.hoMin != null && !(h >= f.hoMin)) return false;
+  if (f.medium && !f.medium.some(s => String(w.medium || '').includes(s))) return false;
+  return true;
+}
+const liveColsC = () => COLS.filter(c => c.slug && WORKS.filter(w => colMatch(w, c.filter)).length >= MIN_COL);
+function applyCol(){
+  const nav = document.getElementById('buy-cols');
+  if (!COLS.length) return;   /* 아직 불러오기 전이면 서버가 넣어 둔 내용을 그대로 둡니다 */
+  const col = liveColsC().find(c => c.slug === curCol);
+  if (curCol && !col) curCol = '';
+  const set = (id, t) => { const el = document.getElementById(id); if (el) el.textContent = t; };
+  set('buy-label', col ? '상황별 작품' : BUY_HEAD.label);
+  set('buy-h1', col ? col.h1 : BUY_HEAD.h1);
+  set('buy-lead', col ? col.lead : BUY_HEAD.lead);
+  if (nav) nav.innerHTML = `<a href="/buy"${col ? '' : ' aria-current="page"'}>전체</a>` +
+    liveColsC().map(c => `<a href="/buy/${esc(c.slug)}"${c.slug === curCol ? ' aria-current="page"' : ''}>${esc(c.label)}</a>`).join('');
+  if (!pageEl('buy').hidden) document.title = col ? col.title : TITLES.buy;
+  if (WORKS.length) renderGrid();
+}
+
 function visibleWorks(){
   const [lo, hi] = (fPrice?.value || '').split('-');
   const med = fMedium?.value || '';
+  const col = COLS.find(c => c.slug === curCol);
   return WORKS.filter(w => {
+    if (col && !colMatch(w, col.filter)) return false;
     if (curArtist && w.artistId !== curArtist) return false;
     if (med && w.medium !== med) return false;
     if (lo || hi) { if (w.price === null || w.price === undefined || w.price === '') return false; }
@@ -2600,7 +2639,7 @@ function tcardHTML(w){
   const badge = STATUS_LABEL[w.status] ? `<span class="badge">${esc(STATUS_LABEL[w.status])}</span>` : '';
   return `<button class="tcard" type="button" data-id="${esc(w.id)}" data-status="${esc(w.status||'available')}">
     <span class="tcard-img">${badge}
-      <img src="${esc(w.images?.[0]||'')}" alt="${esc(w.title)} — ${esc(a?.name||'')}" loading="lazy" decoding="async">
+      <img src="${esc(w.images?.[0]||'')}" alt="${esc(a?.name ? a.name + ' 작가 원화 ' : '')}〈${esc(w.title)}〉" loading="lazy" decoding="async">
     </span>
     <span class="tcard-t">${esc(w.title)}</span>
     <span class="tcard-a">${esc(a?.name || '')}</span>
@@ -2641,7 +2680,7 @@ function renderTicker(){
     const a = artistOf(w.artistId);
     const meta = [w.year, w.medium, w.size].filter(Boolean).join(' · ');
     return `<button class="gw sx" type="button" data-id="${esc(w.id)}" data-status="${esc(w.status||'available')}" style="--i:${k}">
-      <span class="gw-img"><img src="${esc(w.images?.[0]||'')}" alt="${esc(w.title)} — ${esc(a?.name||'')}" loading="lazy" decoding="async"></span>
+      <span class="gw-img"><img src="${esc(w.images?.[0]||'')}" alt="${esc(a?.name ? a.name + ' 작가 원화 ' : '')}〈${esc(w.title)}〉" loading="lazy" decoding="async"></span>
       <span class="gw-a">${esc(a?.name || '')}</span>
       <span class="gw-t">${esc(w.title)}</span>
       ${meta ? `<span class="gw-m">${esc(meta)}</span>` : ''}
@@ -2845,7 +2884,7 @@ function detailHTML(w){
 
   return `<div class="m-grid">
     <div class="m-media">
-      <img class="m-main" id="m-main" src="${esc(imgs[0]||'')}" alt="${esc(w.title)} — ${esc(a?.name||'')}">
+      <img class="m-main" id="m-main" src="${esc(imgs[0]||'')}" alt="${esc(a?.name ? a.name + ' 작가 원화 ' : '')}〈${esc(w.title)}〉">
       ${thumbs}
     </div>
     <div class="m-info" id="m-info">
@@ -2976,7 +3015,7 @@ function closeModal(){
   modalIn.innerHTML = '';
   if (location.hash.startsWith('#w-')) history.replaceState(null, '', location.pathname + location.search);
   resetOG();
-  if (WK_PATH.test(location.pathname)) { history.replaceState(null, '', '/#/buy'); document.title = TITLES.buy; }
+  if (WK_PATH.test(location.pathname)) { history.replaceState(null, '', '/buy'); document.title = TITLES.buy; }
   else if (!pageEl('buy').hidden) document.title = TITLES.buy;
   lastFocus?.focus();
 }
@@ -3081,7 +3120,7 @@ function renderArtist(id){
   artistView.innerHTML = `<div class="wrap">
     <button class="a-back" type="button" id="a-back">← 작가 목록으로</button>
     <div class="a-head${a.portrait ? '' : ' noportrait'}">
-      ${a.portrait ? `<img class="a-portrait" src="${esc(a.portrait)}" alt="${esc(a.name)}">` : ''}
+      ${a.portrait ? `<img class="a-portrait" src="${esc(a.portrait)}" alt="${esc(a.name)} 작가">` : ''}
       <div>
         <div class="a-name"><h1>${esc(a.name)}</h1></div>
         ${a.tagline ? `<p class="a-tag">${esc(a.tagline)}</p>` : ''}
@@ -3135,7 +3174,7 @@ function renderArtist(id){
   nav.classList.add('solid');
   document.body.classList.add('subpage');
   scrollTo(0, 0);
-  document.title = `${a.name} 작가 — 작품·가격 | Gallery 751`;
+  document.title = `${a.name} 작가 작품 구매·가격 — 원화 ${mine.length}점 | 갤러리751`;
   setOG(`${a.name} — Gallery 751`, mine[0]?.images?.[0] || a.portrait);
 }
 
@@ -3362,8 +3401,11 @@ const AR_PATH = /^\/artist\/([^/]+)\/?$/;
 /* 작품 한 점(/work/작품ID)과 주요 안내 화면(/buy 등)도 검색용 진짜 주소가 있습니다. 들어오면 같은 화면을 엽니다 */
 const WK_PATH = /^\/work\/([^/]+)\/?$/;
 const PG_PATH = /^\/(buy|artists|records|how|about)\/?$/;
+/* 상황별 작품 모음 /buy/모음ID */
+const COL_PATH = /^\/buy\/([a-z0-9-]+)\/?$/;
 function route(){
   let h = location.hash;
+  curCol = '';
   const jh = h.match(/^#\/journal(?:\/(.+))?$/);
   const ah = h.match(/^#\/artist\/(.+)$/);
   if (jh) { history.replaceState(null, '', '/journal' + (jh[1] ? '/' + jh[1] : '')); h = ''; }
@@ -3374,10 +3416,12 @@ function route(){
     const am = location.pathname.match(AR_PATH);
     const wm = location.pathname.match(WK_PATH);
     const pm = location.pathname.match(PG_PATH);
+    const cm = location.pathname.match(COL_PATH);
     if (jm) h = '#/journal' + (jm[1] ? '/' + jm[1] : '');
     else if (am) h = '#/artist/' + am[1];
     else if (wm) h = '#' + decodeURIComponent(wm[1]);
     else if (pm) h = '#/' + pm[1];
+    else if (cm) { h = '#/buy'; curCol = cm[1]; }
     else if (location.pathname !== '/') history.replaceState(null, '', '/');
   }
   const a = h.match(/^#\/artist\/(.+)$/);
@@ -3399,6 +3443,7 @@ function route(){
 
   closeModal();
   showPage(id || 'home');
+  if (id === 'buy') applyCol();
   if (id === 'journal') renderJournalPost(null);
   scrollTo(0, 0);
   onScroll();
@@ -3424,7 +3469,7 @@ addEventListener('popstate', route);
 /* 사이트 안 링크는 새로고침 없이 화면만 바꿉니다.
    - 진짜 주소 링크(/buy, /journal/글ID 등): 검색엔진이 따라 들어갈 수 있게 href 는 진짜 주소로 두고, 누르면 주소만 바꿔 같은 화면을 엽니다
    - 해시 링크(#/sell 등)를 /journal 같은 진짜 주소에서 누르면 루트 주소로 옮겨 갑니다 */
-const SPA_PATH = (p) => p === '/' || JN_PATH.test(p) || AR_PATH.test(p) || WK_PATH.test(p) || PG_PATH.test(p);
+const SPA_PATH = (p) => p === '/' || JN_PATH.test(p) || AR_PATH.test(p) || WK_PATH.test(p) || PG_PATH.test(p) || COL_PATH.test(p);
 document.addEventListener('click', (e) => {
   if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
   const pa = e.target.closest('a[href^="/"]');
@@ -4544,7 +4589,7 @@ addEventListener('hashchange', () => {
 
 /* ─────────── 부트 ─────────── */
 (async function boot(){
-  const [w, a, f, j] = await Promise.all(Object.values(SRC).map(async (u) => {
+  const [w, a, f, j, c] = await Promise.all(Object.values(SRC).map(async (u) => {
     try { const r = await fetch(u, { cache: 'no-cache' }); return r.ok ? await r.json() : null; }
     catch (e) { console.error('load', u, e); return null; }
   }));
@@ -4552,6 +4597,9 @@ addEventListener('hashchange', () => {
   ARTISTS = Array.isArray(a) ? a : [];
   FOUNDING = (f && typeof f === 'object') ? f : { capacity: 10, artists: [] };
   JOURNAL = Array.isArray(j) ? j : [];
+  COLS = Array.isArray(c) ? c : [];
+  /* 모음 문구의 영어 번역을 사전에 등록합니다 */
+  COLS.forEach(x => { if (!x.en) return; ['label', 'h1', 'lead'].forEach(k => { if (x[k] && x.en[k]) I18N.text[x[k]] = x.en[k]; }); });
 
   if (WORKS.length >= 12) {
     const meds = [...new Set(WORKS.map(x => x.medium).filter(Boolean))].sort();

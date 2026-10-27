@@ -5,7 +5,7 @@
  * 그래서 같은 화면을 진짜 주소로도 열 수 있게 하고, 제목·설명·대표 사진·구조화 데이터를 미리 넣어 보냅니다.
  * 브라우저에서는 index.html 이 평소처럼 떠서 같은 화면(작품은 상세 창)을 그대로 엽니다.
  */
-import { SITE, esc, abs, hasPrice, won, STATUS, AVAIL, isReal, load, liveWorks, setHead, leaveHome, noindex, send } from './_lib.js';
+import { SITE, esc, abs, hasPrice, won, STATUS, AVAIL, isReal, load, liveWorks, liveCols, setHead, leaveHome, noindex, send } from './_lib.js';
 import { workCard } from './artist.js';
 
 /* 해시 화면을 진짜 주소로 열 때 쓰는 제목·설명 */
@@ -88,8 +88,46 @@ async function renderWork(id) {
   return { status: 200, html };
 }
 
+/* 구매 화면 머리말 아래 상황별 모음 링크 — 검색엔진이 모음 페이지로 따라 들어가는 길 */
+const colsNav = (cols, cur = '') => `<nav class="cols" id="buy-cols" aria-label="상황별 작품 모음"><a href="/buy"${cur ? '' : ' aria-current="page"'}>전체</a>${
+  cols.map(c => `<a href="/buy/${esc(c.slug)}"${c.slug === cur ? ' aria-current="page"' : ''}>${esc(c.label)}</a>`).join('')}</nav>`;
+const NAV_EMPTY = '<nav class="cols" id="buy-cols" aria-label="상황별 작품 모음"></nav>';
+
+/* 상황별 작품 모음 /buy/모음ID — "30만 원 이하 그림", "집들이 선물 그림" 같은 검색어마다 한 장씩 */
+async function renderCol(slug) {
+  const [tpl, artists, works, cols] = await load('index.html', 'artists.json', 'works.json', 'collections.json');
+  const real = artists.filter(isReal);
+  const live = liveWorks(works, artists);
+  const all = liveCols(cols, live);
+  const c = all.find(x => x.slug === slug);
+  let html = leaveHome(tpl).replace('<main class="page" id="page-buy" hidden>', '<main class="page" id="page-buy">');
+  if (!c) {
+    html = noindex(setHead(html, { ...PAGES.buy, url: `${SITE}/buy` })).replace(NAV_EMPTY, colsNav(all));
+    return { status: 404, html };
+  }
+  const url = `${SITE}/buy/${c.slug}`;
+  const image = c.works[0]?.images?.[0] ? abs(c.works[0].images[0]) : '';
+  html = setHead(html, {
+    title: c.title, desc: c.lead, url, image,
+    jsonld: {
+      '@context': 'https://schema.org', '@type': 'CollectionPage', name: c.h1, url, description: c.lead,
+      isPartOf: { '@type': 'WebSite', name: 'Gallery 751', url: SITE },
+      mainEntity: { '@type': 'ItemList', numberOfItems: c.works.length,
+        itemListElement: c.works.map((w, i) => ({ '@type': 'ListItem', position: i + 1, url: `${SITE}/work/${w.id}`, name: w.title })) },
+    },
+  });
+  html = html
+    .replace(/<span class="label" id="buy-label">[^<]*<\/span>/, '<span class="label" id="buy-label">상황별 작품</span>')
+    .replace(/<h1 id="buy-h1">[^<]*<\/h1>/, `<h1 id="buy-h1">${esc(c.h1)}</h1>`)
+    .replace(/<p class="lead" id="buy-lead">[^<]*<\/p>/, `<p class="lead" id="buy-lead">${esc(c.lead)}</p>`)
+    .replace(NAV_EMPTY, colsNav(all, c.slug))
+    .replace('<div id="by-artist"></div>',
+      `<div id="by-artist"><div class="grid">${c.works.map(w => workCard(w, real.find(a => a.id === w.artistId))).join('')}</div></div>`);
+  return { status: 200, html };
+}
+
 async function renderPage(p) {
-  const [tpl, artists, works] = await load('index.html', 'artists.json', 'works.json');
+  const [tpl, artists, works, cols] = await load('index.html', 'artists.json', 'works.json', 'collections.json');
   const meta = PAGES[p];
   let html = setHead(leaveHome(tpl), { ...meta, url: `${SITE}/${p}` })
     .replace(`<main class="page" id="page-${p}" hidden>`, `<main class="page" id="page-${p}">`);
@@ -97,6 +135,7 @@ async function renderPage(p) {
   const live = liveWorks(works, artists);
   /* 목록 화면에는 작품·작가 링크를 미리 넣어 검색엔진이 따라 들어갈 수 있게 합니다 */
   if (p === 'buy') {
+    html = html.replace(NAV_EMPTY, colsNav(liveCols(cols, live)));
     html = html.replace('<div id="by-artist"></div>',
       `<div id="by-artist"><div class="grid">${live.map(w => workCard(w, real.find(a => a.id === w.artistId))).join('')}</div></div>`);
   }
@@ -112,6 +151,7 @@ async function renderPage(p) {
 
 export async function render(p, id) {
   if (p === 'work') return renderWork(id);
+  if (p === 'col') return renderCol(id);
   if (PAGES[p]) return renderPage(p);
   const [tpl] = await load('index.html');
   return { status: 404, html: noindex(tpl) };

@@ -9,7 +9,7 @@
 import { SITE, esc, abs, hasPrice, won, STATUS, AVAIL, isReal, load, setHead, leaveHome, noindex, send } from './_lib.js';
 
 export const workCard = (w, a) => `<a class="card" href="/work/${esc(w.id)}" data-id="${esc(w.id)}">
-      <span class="card-img">${STATUS[w.status] ? `<span class="badge">${STATUS[w.status]}</span>` : ''}<img src="/${esc(w.images?.[0] || '')}" alt="${esc(w.title)} — ${esc(a?.name || '')}" loading="lazy"></span>
+      <span class="card-img">${STATUS[w.status] ? `<span class="badge">${STATUS[w.status]}</span>` : ''}<img src="/${esc(w.images?.[0] || '')}" alt="${esc(a?.name ? a.name + ' 작가 원화 ' : '')}〈${esc(w.title)}〉" loading="lazy"></span>
       <span class="card-meta"><span class="card-title">${esc(w.title)}</span><span class="card-artist">${esc(a?.name || '')}</span>
       <span class="card-sub">${esc([w.year, w.medium, w.size].filter(Boolean).join(' · '))}</span>
       <span class="card-price">${esc(won(w))}</span></span></a>`;
@@ -33,7 +33,7 @@ function artistHTML(a, works) {
     </div>
     ${a.story ? `<p class="a-story">${esc(a.story)}</p>` : ''}
     ${exh}${press}
-    <div class="a-works"><h2 class="label">${esc(a.name)} 작가의 작품</h2><div class="grid" style="margin-top:24px">${works.map(w => workCard(w, a)).join('')}</div></div>
+    <div class="a-works"><h2 class="label">${esc(a.name)} 작가 작품 구매</h2><div class="grid" style="margin-top:24px">${works.map(w => workCard(w, a)).join('')}</div></div>
   </div>`;
 }
 
@@ -57,7 +57,7 @@ export async function render(id) {
   const desc = `${a.name} 작가의 원화 ${works.length}점을 가격과 함께 소개합니다.${range} ${lead}`.trim();
 
   html = setHead(html, {
-    title: `${a.name} 작가 — 작품·가격 | Gallery 751`, desc, url, image, type: 'profile',
+    title: `${a.name} 작가 작품 구매·가격 — 원화 ${works.length}점 | 갤러리751`, desc, url, image, type: 'profile',
     jsonld: {
       '@context': 'https://schema.org', '@type': 'ProfilePage', url,
       mainEntity: {

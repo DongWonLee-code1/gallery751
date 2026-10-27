@@ -78,3 +78,22 @@ export function send(res, { status, html }) {
   res.setHeader('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=60');
   res.status(status).send(html);
 }
+
+/* 상황별 작품 모음(/buy/모음ID) — collections.json 의 조건으로 작품을 거릅니다.
+   작품이 새로 올라오면 조건에 맞는 모음에 자동으로 들어가고, 작품이 MIN_COL 점 미만인 모음은 주소를 열지 않습니다.
+   같은 조건 함수가 index.html(colMatch)에도 있으니 바꿀 때 둘 다 고칩니다 */
+export const MIN_COL = 3;
+export function colMatch(w, f = {}) {
+  if (w.status === 'sold') return false;
+  const p = Number(w.price), h = Number(w.sizeHo);
+  if (f.priceMax != null && !(hasPrice(w) && p <= f.priceMax)) return false;
+  if (f.priceMin != null && !(hasPrice(w) && p >= f.priceMin)) return false;
+  if (f.hoMax != null && !(h > 0 && h <= f.hoMax)) return false;
+  if (f.hoMin != null && !(h >= f.hoMin)) return false;
+  if (f.medium && !f.medium.some(s => String(w.medium || '').includes(s))) return false;
+  return true;
+}
+/* 작품이 충분한 모음만 [{ ...모음, works }] 로 돌려줍니다 */
+export const liveCols = (cols, works) => (Array.isArray(cols) ? cols : [])
+  .map(c => ({ ...c, works: works.filter(w => colMatch(w, c.filter)) }))
+  .filter(c => c.slug && c.works.length >= MIN_COL);

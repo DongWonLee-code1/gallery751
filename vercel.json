@@ -8,13 +8,13 @@
       "includeFiles": "{index.html,journal.json}"
     },
     "api/sitemap.js": {
-      "includeFiles": "{journal.json,artists.json,works.json}"
+      "includeFiles": "{journal.json,artists.json,works.json,collections.json}"
     },
     "api/artist.js": {
       "includeFiles": "{index.html,artists.json,works.json}"
     },
     "api/page.js": {
-      "includeFiles": "{index.html,artists.json,works.json}"
+      "includeFiles": "{index.html,artists.json,works.json,collections.json}"
     },
     "api/rss.js": {
       "includeFiles": "journal.json"
@@ -55,6 +55,10 @@
     {
       "source": "/work/:id",
       "destination": "/api/page?p=work&id=:id"
+    },
+    {
+      "source": "/buy/:slug",
+      "destination": "/api/page?p=col&id=:slug"
     },
     {
       "source": "/:p(buy|artists|records|how|about)",
