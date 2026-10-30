@@ -1250,5 +1250,74 @@
     "custody": "none",
     "provenance": [],
     "listedAt": "2026-10-22"
+  },
+  {
+    "id": "w-rw-01",
+    "no": "G751-0055",
+    "artistId": "rainy-wei",
+    "title": "Han Dynasty Clay Horse",
+    "year": 2025,
+    "medium": "캔버스에 유채",
+    "size": "182.9 × 287 cm",
+    "sizeHo": 300,
+    "price": 12030000,
+    "status": "available",
+    "framed": false,
+    "images": [
+      "works/w-rw-01/main.jpg"
+    ],
+    "tags": [
+      "회화",
+      "구상"
+    ],
+    "custody": "none",
+    "provenance": [],
+    "listedAt": "2026-10-30"
+  },
+  {
+    "id": "w-rw-02",
+    "no": "G751-0056",
+    "artistId": "rainy-wei",
+    "title": "Han Dynasty Figurines",
+    "year": 2025,
+    "medium": "나무에 엔코스틱",
+    "size": "57.2 × 45.7 cm",
+    "sizeHo": 10,
+    "price": 2670000,
+    "status": "available",
+    "framed": false,
+    "images": [
+      "works/w-rw-02/main.jpg"
+    ],
+    "tags": [
+      "회화",
+      "구상"
+    ],
+    "custody": "none",
+    "provenance": [],
+    "listedAt": "2026-10-30"
+  },
+  {
+    "id": "w-rw-03",
+    "no": "G751-0057",
+    "artistId": "rainy-wei",
+    "title": "Untitled",
+    "year": 2026,
+    "medium": "나무에 수채",
+    "size": "61 × 61 cm",
+    "sizeHo": 12,
+    "price": 2670000,
+    "status": "available",
+    "framed": false,
+    "images": [
+      "works/w-rw-03/main.jpg"
+    ],
+    "tags": [
+      "회화",
+      "추상"
+    ],
+    "custody": "none",
+    "provenance": [],
+    "listedAt": "2026-10-30"
   }
 ]
