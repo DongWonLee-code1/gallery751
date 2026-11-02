@@ -1319,5 +1319,235 @@
     "custody": "none",
     "provenance": [],
     "listedAt": "2026-10-30"
+  },
+  {
+    "id": "w-khs-01",
+    "no": "G751-0058",
+    "artistId": "kwon-hyoseon",
+    "title": "Grounding",
+    "year": 2026,
+    "medium": "캔버스에 유채",
+    "size": "46 × 46 cm",
+    "sizeHo": 8,
+    "price": 700000,
+    "status": "available",
+    "framed": false,
+    "images": [
+      "works/w-khs-01/main.jpg"
+    ],
+    "tags": [
+      "회화",
+      "구상"
+    ],
+    "custody": "none",
+    "provenance": [],
+    "listedAt": "2026-11-02"
+  },
+  {
+    "id": "w-khs-02",
+    "no": "G751-0059",
+    "artistId": "kwon-hyoseon",
+    "title": "밤에 화분을 가꾸는 여인",
+    "year": 2026,
+    "medium": "캔버스에 유채",
+    "size": "100 × 73 cm",
+    "sizeHo": 40,
+    "price": 2800000,
+    "status": "available",
+    "framed": false,
+    "images": [
+      "works/w-khs-02/main.jpg"
+    ],
+    "tags": [
+      "회화",
+      "구상"
+    ],
+    "custody": "none",
+    "provenance": [],
+    "listedAt": "2026-11-02"
+  },
+  {
+    "id": "w-khs-03",
+    "no": "G751-0060",
+    "artistId": "kwon-hyoseon",
+    "title": "나무 밑동에 앉은 여인",
+    "year": 2026,
+    "medium": "캔버스에 유채",
+    "size": "65 × 53 cm",
+    "sizeHo": 15,
+    "price": 1050000,
+    "status": "available",
+    "framed": false,
+    "images": [
+      "works/w-khs-03/main.jpg"
+    ],
+    "tags": [
+      "회화",
+      "구상"
+    ],
+    "custody": "none",
+    "provenance": [],
+    "listedAt": "2026-11-02"
+  },
+  {
+    "id": "w-khs-04",
+    "no": "G751-0061",
+    "artistId": "kwon-hyoseon",
+    "title": "Grounding",
+    "year": 2026,
+    "medium": "캔버스에 유채",
+    "size": "73 × 91 cm",
+    "sizeHo": 30,
+    "price": 2100000,
+    "status": "available",
+    "framed": false,
+    "images": [
+      "works/w-khs-04/main.jpg"
+    ],
+    "tags": [
+      "회화",
+      "구상"
+    ],
+    "custody": "none",
+    "provenance": [],
+    "listedAt": "2026-11-02"
+  },
+  {
+    "id": "w-khs-05",
+    "no": "G751-0062",
+    "artistId": "kwon-hyoseon",
+    "title": "White love",
+    "year": 2026,
+    "medium": "캔버스에 유채",
+    "size": "100 × 65 cm",
+    "sizeHo": 40,
+    "price": 2800000,
+    "status": "available",
+    "framed": false,
+    "images": [
+      "works/w-khs-05/main.jpg"
+    ],
+    "tags": [
+      "회화",
+      "구상"
+    ],
+    "custody": "none",
+    "provenance": [],
+    "listedAt": "2026-11-02"
+  },
+  {
+    "id": "w-khs-06",
+    "no": "G751-0063",
+    "artistId": "kwon-hyoseon",
+    "title": "Birthday cake",
+    "year": 2026,
+    "medium": "캔버스에 유채",
+    "size": "73 × 73 cm",
+    "sizeHo": 20,
+    "price": 2100000,
+    "status": "available",
+    "framed": false,
+    "images": [
+      "works/w-khs-06/main.jpg"
+    ],
+    "tags": [
+      "회화",
+      "구상"
+    ],
+    "custody": "none",
+    "provenance": [],
+    "listedAt": "2026-11-02"
+  },
+  {
+    "id": "w-khs-07",
+    "no": "G751-0064",
+    "artistId": "kwon-hyoseon",
+    "title": "나무 밑동에 기댄 여인",
+    "year": 2026,
+    "medium": "캔버스에 유채",
+    "size": "73 × 61 cm",
+    "sizeHo": 20,
+    "price": 1400000,
+    "status": "available",
+    "framed": false,
+    "images": [
+      "works/w-khs-07/main.jpg"
+    ],
+    "tags": [
+      "회화",
+      "구상"
+    ],
+    "custody": "none",
+    "provenance": [],
+    "listedAt": "2026-11-02"
+  },
+  {
+    "id": "w-khs-08",
+    "no": "G751-0065",
+    "artistId": "kwon-hyoseon",
+    "title": "Grounding",
+    "year": 2025,
+    "medium": "캔버스에 유채",
+    "size": "100 × 65 cm",
+    "sizeHo": 40,
+    "price": 2800000,
+    "status": "available",
+    "framed": false,
+    "images": [
+      "works/w-khs-08/main.jpg"
+    ],
+    "tags": [
+      "회화",
+      "구상"
+    ],
+    "custody": "none",
+    "provenance": [],
+    "listedAt": "2026-11-02"
+  },
+  {
+    "id": "w-khs-09",
+    "no": "G751-0066",
+    "artistId": "kwon-hyoseon",
+    "title": "조용하고 깨끗한 집",
+    "year": 2026,
+    "medium": "캔버스에 유채",
+    "size": "53 × 46 cm",
+    "sizeHo": 10,
+    "price": 700000,
+    "status": "available",
+    "framed": false,
+    "images": [
+      "works/w-khs-09/main.jpg"
+    ],
+    "tags": [
+      "회화",
+      "구상"
+    ],
+    "custody": "none",
+    "provenance": [],
+    "listedAt": "2026-11-02"
+  },
+  {
+    "id": "w-khs-10",
+    "no": "G751-0067",
+    "artistId": "kwon-hyoseon",
+    "title": "밤에 요리하는 여인",
+    "year": 2026,
+    "medium": "캔버스에 유채",
+    "size": "130 × 97 cm",
+    "sizeHo": 60,
+    "price": 4200000,
+    "status": "available",
+    "framed": false,
+    "images": [
+      "works/w-khs-10/main.jpg"
+    ],
+    "tags": [
+      "회화",
+      "구상"
+    ],
+    "custody": "none",
+    "provenance": [],
+    "listedAt": "2026-11-02"
   }
 ]
