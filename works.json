@@ -1260,7 +1260,7 @@
     "medium": "캔버스에 유채",
     "size": "182.9 × 287 cm",
     "sizeHo": 300,
-    "price": 12030000,
+    "price": 12050000,
     "status": "available",
     "framed": false,
     "images": [
@@ -1272,7 +1272,11 @@
     ],
     "custody": "none",
     "provenance": [],
-    "listedAt": "2026-10-30"
+    "listedAt": "2026-10-30",
+    "priceForeign": {
+      "currency": "USD",
+      "amount": 9000
+    }
   },
   {
     "id": "w-rw-02",
@@ -1283,7 +1287,7 @@
     "medium": "나무에 엔코스틱",
     "size": "57.2 × 45.7 cm",
     "sizeHo": 10,
-    "price": 2670000,
+    "price": 2680000,
     "status": "available",
     "framed": false,
     "images": [
@@ -1295,7 +1299,11 @@
     ],
     "custody": "none",
     "provenance": [],
-    "listedAt": "2026-10-30"
+    "listedAt": "2026-10-30",
+    "priceForeign": {
+      "currency": "USD",
+      "amount": 2000
+    }
   },
   {
     "id": "w-rw-03",
@@ -1306,7 +1314,7 @@
     "medium": "나무에 수채",
     "size": "61 × 61 cm",
     "sizeHo": 12,
-    "price": 2670000,
+    "price": 2680000,
     "status": "available",
     "framed": false,
     "images": [
@@ -1318,7 +1326,11 @@
     ],
     "custody": "none",
     "provenance": [],
-    "listedAt": "2026-10-30"
+    "listedAt": "2026-10-30",
+    "priceForeign": {
+      "currency": "USD",
+      "amount": 2000
+    }
   },
   {
     "id": "w-khs-01",
@@ -1549,5 +1561,115 @@
     "custody": "none",
     "provenance": [],
     "listedAt": "2026-11-02"
+  },
+  {
+    "id": "w-kf-01",
+    "no": "G751-0068",
+    "artistId": "fung-ka-fai",
+    "title": "Rhythm000000",
+    "year": 2025,
+    "medium": "캔버스에 유채",
+    "size": "180 × 230 cm",
+    "sizeHo": 150,
+    "price": 3000000,
+    "status": "available",
+    "images": [
+      "works/w-kf-01/main.jpg"
+    ],
+    "tags": [
+      "회화",
+      "추상"
+    ],
+    "custody": "none",
+    "provenance": [],
+    "listedAt": "2026-11-03"
+  },
+  {
+    "id": "w-kf-02",
+    "no": "G751-0069",
+    "artistId": "fung-ka-fai",
+    "title": "Untitled",
+    "year": 2024,
+    "medium": "합판에 유채",
+    "size": "96.5 × 180.5 cm",
+    "sizeHo": 120,
+    "price": 4000000,
+    "status": "available",
+    "images": [
+      "works/w-kf-02/main.jpg"
+    ],
+    "tags": [
+      "회화",
+      "구상"
+    ],
+    "custody": "none",
+    "provenance": [],
+    "listedAt": "2026-11-03"
+  },
+  {
+    "id": "w-kf-03",
+    "no": "G751-0070",
+    "artistId": "fung-ka-fai",
+    "title": "Rhythm00001",
+    "year": 2025,
+    "medium": "종이에 유채",
+    "size": "26 × 41.8 cm",
+    "sizeHo": 6,
+    "price": 200000,
+    "status": "available",
+    "images": [
+      "works/w-kf-03/main.jpg"
+    ],
+    "tags": [
+      "회화",
+      "추상"
+    ],
+    "custody": "none",
+    "provenance": [],
+    "listedAt": "2026-11-03"
+  },
+  {
+    "id": "w-kf-04",
+    "no": "G751-0071",
+    "artistId": "fung-ka-fai",
+    "title": "Rhythm00002",
+    "year": 2025,
+    "medium": "종이에 유채",
+    "size": "21 × 17 cm",
+    "sizeHo": 1,
+    "price": 200000,
+    "status": "available",
+    "images": [
+      "works/w-kf-04/main.jpg"
+    ],
+    "tags": [
+      "회화",
+      "추상"
+    ],
+    "custody": "none",
+    "provenance": [],
+    "listedAt": "2026-11-03"
+  },
+  {
+    "id": "w-kf-05",
+    "no": "G751-0072",
+    "artistId": "fung-ka-fai",
+    "title": "Untitled",
+    "year": 2017,
+    "medium": "캔버스에 유채",
+    "size": "40 × 30 cm",
+    "sizeHo": 6,
+    "price": 1000000,
+    "status": "available",
+    "images": [
+      "works/w-kf-05/main.jpg"
+    ],
+    "tags": [
+      "회화",
+      "구상"
+    ],
+    "custody": "none",
+    "provenance": [],
+    "listedAt": "2026-11-03"
   }
 ]

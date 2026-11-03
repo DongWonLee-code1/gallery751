@@ -65,6 +65,7 @@
 
 - `status` — `available` / `reserved`(예약중) / `sold`(판매됨 + 채도 down)
 - `custody` — `delivered`(수령함) / `stored`(Gallery 751 보관 중) / `none`
+- `priceForeign` — 해외 작가가 외화로 정한 가격. `{"currency": "USD", "amount": 2000}` 처럼 넣으면 외화 가격을 크게 보여주고, 그 아래에 `price`(원화)를 "약 ○○원 · 결제 당일 환율 적용"으로 표시합니다. `price` 는 근사치(1만원 단위 반올림)로 넣어 두고, 정렬·가격대 필터·호당 가격 계산에 그대로 씁니다
 - `sizeHo` — 호수. 작품 카드·상세에 **호당 가격**(작품가 ÷ 호수, 100원 단위 반올림)으로 표시됩니다. 없으면 표시 안 함.
   실제 크기(cm)에 가장 가까운 표준 호수(F·P·M)로 넣습니다. 예: 53 × 33.4 cm → 10(M)
 - `provenance[].type` — `primary`(작가 판매) / `resale`(재판매)

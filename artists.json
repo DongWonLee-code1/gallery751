@@ -201,5 +201,25 @@
       "2023 단체전 — 잠금해제, 누아갤러리",
       "2022 단체전 — 느린 향내: 네 작가의 공감각 실험 프로젝트, 서교예술실험센터 (서울)"
     ]
+  },
+  {
+    "id": "fung-ka-fai",
+    "name": "Fung Ka Fai",
+    "tagline": "도시의 밤을 사는 사람들의 생존과 기억을 이야기로 그립니다.",
+    "region": "홍콩",
+    "materials": [
+      "유채"
+    ],
+    "instagram": "@fungkafai_paintings",
+    "story": "홍콩에서 활동하며 인간의 생존, 역사적 기억, 문화의 변화를 서사적인 회화와 멀티미디어 프로젝트로 다룹니다. 피렌체에서 고전 회화를 공부했고, 기록을 조사하는 일과 상징적인 이미지를 엮어 화면을 만듭니다. 낮에는 병원 그룹의 예술 프로젝트를 이끌고, 일과 뒤에 자신의 그림을 그립니다.\n연작 〈The Night of Urbanites〉는 현대 도시인의 삶을 비추는 유화 연작입니다. 연민과 사랑, 다시 일어서는 힘을 주제로, 사람이 처한 처지와 문화의 역사가 어떻게 맞물려 변해 가는지를 그립니다.\n〈Rhythm〉 연작에서는 어두운 화면 위로 수없이 겹치는 가는 선을 그어, 밤하늘의 궤적 같은 리듬을 남깁니다.",
+    "exhibitions": [
+      "2026 SENSES International Art Fair — MUST Museum (이탈리아 레체)",
+      "2026 Collect Hong Kong — 홍콩아트센터 (홍콩)",
+      "2025 홍콩예술학원 25주년 기념전 — 홍콩아트센터 Diana Cheung Experimental Gallery (홍콩)",
+      "2025 Flipside 전시 〈Points of Resonance〉 — JCCAC (홍콩)",
+      "2025 Collection Hong Kong — 홍콩아트센터 Pao Galleries (홍콩)",
+      "2025 〈The True Value of Art〉 — Soho House (홍콩)"
+    ],
+    "portrait": "artists/fung-ka-fai/portrait.jpg"
   }
 ]
