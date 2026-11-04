@@ -167,7 +167,7 @@
     "portrait": "artists/in-soyeon/portrait.jpg"
   },
   {
-    "id": "rainy-wei",
+    "id": "rainy-wei", "overseas": true,
     "name": "Rainy Wei",
     "tagline": "흙으로 빚은 말 위에 기억의 층을 쌓고 다시 긁어냅니다.",
     "region": "미국 뉴저지",
@@ -203,7 +203,7 @@
     ]
   },
   {
-    "id": "fung-ka-fai",
+    "id": "fung-ka-fai", "overseas": true,
     "name": "Fung Ka Fai",
     "tagline": "도시의 밤을 사는 사람들의 생존과 기억을 이야기로 그립니다.",
     "region": "홍콩",
