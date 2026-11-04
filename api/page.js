@@ -5,7 +5,7 @@
  * 그래서 같은 화면을 진짜 주소로도 열 수 있게 하고, 제목·설명·대표 사진·구조화 데이터를 미리 넣어 보냅니다.
  * 브라우저에서는 index.html 이 평소처럼 떠서 같은 화면(작품은 상세 창)을 그대로 엽니다.
  */
-import { SITE, esc, abs, hasPrice, won, STATUS, AVAIL, isReal, load, liveWorks, setHead, leaveHome, noindex, send } from './_lib.js';
+import { SITE, esc, abs, hasPrice, won, fxNote, offerPrice, STATUS, AVAIL, isReal, load, liveWorks, setHead, leaveHome, noindex, send } from './_lib.js';
 import { workCard } from './artist.js';
 
 /* 해시 화면을 진짜 주소로 열 때 쓰는 제목·설명 */
@@ -39,7 +39,7 @@ function workHTML(w, a) {
     ['제작 연도', esc(w.year || '')],
     ['재료', esc(w.medium || '')],
     ['크기', esc(w.size || '') + (w.sizeHo ? ` (${esc(w.sizeHo)}호)` : '')],
-    ['가격', esc(won(w))],
+    ['가격', esc(won(w)) + (fxNote(w) ? ` (${esc(fxNote(w))})` : '')],
     ['상태', esc(STATUS[w.status] || '구매 가능')],
   ].filter(r => r[1]);
   return `<div class="wrap">
@@ -77,7 +77,7 @@ async function renderWork(id) {
       artMedium: w.medium || undefined, dateCreated: w.year ? String(w.year) : undefined,
       brand: { '@type': 'Brand', name: 'Gallery 751' },
       offers: hasPrice(w) ? {
-        '@type': 'Offer', price: Number(w.price), priceCurrency: 'KRW', url,
+        '@type': 'Offer', ...offerPrice(w), url,
         availability: AVAIL[w.status] || 'https://schema.org/InStock',
         seller: { '@type': 'Organization', name: 'Gallery 751', url: SITE },
       } : undefined,

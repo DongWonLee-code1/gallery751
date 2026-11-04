@@ -2459,10 +2459,10 @@ const SRC = {
 
 /* 작품 가격 표기 — priceLabel 이 있으면 그 문구를 씁니다 (예: 가격 협의 중) */
 const priceText = (w) => w.priceForeign ? fxText(w.priceForeign) : ((w.price === null || w.price === undefined || w.price === '') && w.priceLabel ? w.priceLabel : won(w.price));
-/* 해외 작가 — 작가가 정한 외화 가격이 기준, 원화는 참고용 근사치 (결제 당일 환율 적용) */
+/* 해외 작가 — 작가가 정한 외화 가격이 기준, 원화는 참고용 근사치 (입금 당일 환율 적용) */
 const FX_SIGN = { USD: 'US$', GBP: '£', HKD: 'HK$', EUR: '€', CNY: 'CN¥', JPY: '¥', CAD: 'C$', TWD: 'NT$' };
 const fxText = (f) => (FX_SIGN[f.currency] || (f.currency + ' ')) + Number(f.amount).toLocaleString('en-US');
-const fxNote = (w) => w.priceForeign && Number(w.price) > 0 ? `약 ${won(w.price)} · 결제 당일 환율 적용` : '';
+const fxNote = (w) => w.priceForeign && Number(w.price) > 0 ? `약 ${won(w.price)} · 입금 당일 환율 적용` : '';
 const won  = (n) => (n === null || n === undefined || n === '') ? '가격 준비 중' : Number(n).toLocaleString('ko-KR') + '원';
 const esc  = (v) => String(v ?? '').replace(/[&<>"']/g, c =>
   ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
@@ -2896,7 +2896,7 @@ function buyFormHTML(w){
       <input type="hidden" name="workNo" value="${esc(w.no||'')}">
       <input type="hidden" name="workTitle" value="${esc(w.title)}">
       <input type="hidden" name="artist" value="${esc(a?.name||'')}">
-      <input type="hidden" name="price" value="${esc(w.price)}">
+      <input type="hidden" name="price" value="${esc(w.priceForeign ? priceText(w) : w.price)}">
       <div class="field"><label for="b-name">이름</label><input id="b-name" name="name" type="text" required autocomplete="name"></div>
       <div class="field"><label for="b-contact">연락처 또는 이메일</label><input id="b-contact" name="contact" type="text" required></div>
       <div class="field"><label for="b-region">배송 예정 지역</label><input id="b-region" name="region" type="text" required placeholder="예: 서울 마포구"></div>

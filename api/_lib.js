@@ -11,7 +11,16 @@ export const esc = (v) => String(v ?? '').replace(/[&<>"']/g, c =>
   ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 export const abs = (u) => /^https?:\/\//.test(u) ? u : SITE + '/' + String(u).replace(/^\/+/, '');
 export const hasPrice = (w) => w.price !== null && w.price !== undefined && w.price !== '';
-export const won = (w) => hasPrice(w) ? Number(w.price).toLocaleString('ko-KR') + '원' : (w.priceLabel || '가격 준비 중');
+/* 해외 작가 — 작가가 정한 외화 가격이 기준, 원화는 참고용 근사치 (입금 당일 환율 적용) */
+const FX_SIGN = { USD: 'US$', GBP: '£', HKD: 'HK$', EUR: '€', CNY: 'CN¥', JPY: '¥', CAD: 'C$', TWD: 'NT$' };
+export const won = (w) => w.priceForeign
+  ? (FX_SIGN[w.priceForeign.currency] || (w.priceForeign.currency + ' ')) + Number(w.priceForeign.amount).toLocaleString('en-US')
+  : hasPrice(w) ? Number(w.price).toLocaleString('ko-KR') + '원' : (w.priceLabel || '가격 준비 중');
+export const fxNote = (w) => w.priceForeign && Number(w.price) > 0 ? `약 ${Number(w.price).toLocaleString('ko-KR')}원 · 입금 당일 환율 적용` : '';
+/* 검색엔진용 구조화 데이터의 가격 */
+export const offerPrice = (w) => w.priceForeign
+  ? { price: Number(w.priceForeign.amount), priceCurrency: w.priceForeign.currency }
+  : { price: Number(w.price), priceCurrency: 'KRW' };
 export const STATUS = { sold: '판매됨', reserved: '예약중' };
 export const AVAIL = { sold: 'https://schema.org/SoldOut', reserved: 'https://schema.org/LimitedAvailability' };
 export const isReal = (a) => a && a.id && a.name && !String(a.id).startsWith('sample');
