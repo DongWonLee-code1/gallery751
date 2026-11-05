@@ -2049,5 +2049,135 @@
       "currency": "USD",
       "amount": 500
     }
+  },
+  {
+    "id": "w-tl-01",
+    "no": "G751-0087",
+    "artistId": "troy-liang",
+    "title": "When the Hunters Forget Their Faces",
+    "year": 2026,
+    "medium": "캔버스에 유채",
+    "size": "175 × 140 cm",
+    "sizeHo": 100,
+    "price": 3600000,
+    "status": "available",
+    "images": [
+      "works/w-tl-01/main.jpg"
+    ],
+    "tags": [
+      "회화",
+      "구상"
+    ],
+    "custody": "none",
+    "provenance": [],
+    "listedAt": "2026-11-06",
+    "priceForeign": {
+      "currency": "GBP",
+      "amount": 2000
+    }
+  },
+  {
+    "id": "w-tl-02",
+    "no": "G751-0088",
+    "artistId": "troy-liang",
+    "title": "Guys Send Me Shoes Because They Want to See Me Dangle a Special Pair",
+    "year": 2025,
+    "medium": "캔버스에 유채",
+    "size": "100 × 100 cm",
+    "sizeHo": 40,
+    "price": 1620000,
+    "status": "available",
+    "images": [
+      "works/w-tl-02/main.jpg"
+    ],
+    "tags": [
+      "회화",
+      "구상"
+    ],
+    "custody": "none",
+    "provenance": [],
+    "listedAt": "2026-11-06",
+    "priceForeign": {
+      "currency": "GBP",
+      "amount": 900
+    }
+  },
+  {
+    "id": "w-tl-03",
+    "no": "G751-0089",
+    "artistId": "troy-liang",
+    "title": "So Close to Being a Real Man",
+    "year": 2026,
+    "medium": "캔버스에 유채",
+    "size": "70 × 70 cm",
+    "sizeHo": 20,
+    "price": 990000,
+    "status": "available",
+    "images": [
+      "works/w-tl-03/main.jpg"
+    ],
+    "tags": [
+      "회화",
+      "구상"
+    ],
+    "custody": "none",
+    "provenance": [],
+    "listedAt": "2026-11-06",
+    "priceForeign": {
+      "currency": "GBP",
+      "amount": 550
+    }
+  },
+  {
+    "id": "w-tl-04",
+    "no": "G751-0090",
+    "artistId": "troy-liang",
+    "title": "I Hate You Insincerely",
+    "year": 2025,
+    "medium": "캔버스에 유채",
+    "size": "90 × 76 cm",
+    "sizeHo": 30,
+    "price": 1350000,
+    "status": "available",
+    "images": [
+      "works/w-tl-04/main.jpg"
+    ],
+    "tags": [
+      "회화",
+      "구상"
+    ],
+    "custody": "none",
+    "provenance": [],
+    "listedAt": "2026-11-06",
+    "priceForeign": {
+      "currency": "GBP",
+      "amount": 750
+    }
+  },
+  {
+    "id": "w-tl-05",
+    "no": "G751-0091",
+    "artistId": "troy-liang",
+    "title": "Share with the Lord’s People Who Are in Need",
+    "year": 2026,
+    "medium": "캔버스에 유채",
+    "size": "100 × 150 cm",
+    "sizeHo": 80,
+    "price": 2700000,
+    "status": "available",
+    "images": [
+      "works/w-tl-05/main.jpg"
+    ],
+    "tags": [
+      "회화",
+      "구상"
+    ],
+    "custody": "none",
+    "provenance": [],
+    "listedAt": "2026-11-06",
+    "priceForeign": {
+      "currency": "GBP",
+      "amount": 1500
+    }
   }
 ]

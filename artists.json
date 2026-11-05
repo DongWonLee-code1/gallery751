@@ -167,7 +167,8 @@
     "portrait": "artists/in-soyeon/portrait.jpg"
   },
   {
-    "id": "rainy-wei", "overseas": true,
+    "id": "rainy-wei",
+    "overseas": true,
     "name": "Rainy Wei",
     "tagline": "흙으로 빚은 말 위에 기억의 층을 쌓고 다시 긁어냅니다.",
     "region": "미국 뉴저지",
@@ -203,7 +204,8 @@
     ]
   },
   {
-    "id": "fung-ka-fai", "overseas": true,
+    "id": "fung-ka-fai",
+    "overseas": true,
     "name": "Fung Ka Fai",
     "tagline": "도시의 밤을 사는 사람들의 생존과 기억을 이야기로 그립니다.",
     "region": "홍콩",
@@ -221,5 +223,28 @@
       "2025 〈The True Value of Art〉 — Soho House (홍콩)"
     ],
     "portrait": "artists/fung-ka-fai/portrait.jpg"
+  },
+  {
+    "id": "troy-liang",
+    "name": "Troy Yihao Liang",
+    "tagline": "온라인 공동체가 연기하는 욕망과 남성성을 캔버스 위의 몸으로 옮깁니다.",
+    "region": "영국 런던",
+    "materials": [
+      "유채"
+    ],
+    "story": "런던에서 활동하며 온라인 이미지와 인터넷 문화의 사고방식에서 출발해 그림을 그립니다. 온라인 공동체 안에서 사람들의 관계가 어떻게 연기되는지, 그리고 소셜 미디어가 사랑과 섹슈얼리티, 인종주의, 남성성을 둘러싼 대화에 어떻게 반응하고 그 대화를 바꾸어 가는지에 관심을 둡니다. 사이버 공간의 행동에 스며 있는 부조리가 때로는 인간 본성의 바탕에 깔린 논리를 더 잘 드러낸다고 봅니다.\n가상의 세계에 깊이 빠져 있으면서도 회화가 지닌 물성과 물리적인 존재감을 그만큼 중요하게 여깁니다. 그래서 화면 속 정보와 가상의 경험을 손에 잡히는 구체적인 형태로 옮기는 방식으로 작업합니다.\n〈When the Hunters Forget Their Faces〉와 〈Share with the Lord’s People Who Are in Need〉에서는 인류 역사에서 가장 많이 사냥당해 온 동물인 사슴을 과장되게 남성적인 모습으로 그려 사냥꾼과 사냥감의 경계를 흐립니다. 〈I Hate You Insincerely〉는 매끈한 플라스틱 인형으로 온라인에서 오락처럼 소비되는 혐오를, 〈Guys Send Me Shoes…〉는 크록스를 통해 무엇이든 상품이 되는 경제 속 욕망의 부조리를 유머로 비춥니다.",
+    "exhibitions": [
+      "2026 석사 졸업 전시 (런던)",
+      "2025 〈After:Image〉 — Filet Gallery (런던)",
+      "2024 Winter Group Exhibition — AKA Fine Art (케임브리지)",
+      "2024 Barcelona Exhibition — The Holy Art Gallery (바르셀로나)",
+      "2024 〈Art Unleashed〉 — The Holy Art Gallery (런던)",
+      "2024 학사 졸업 전시 (런던)",
+      "2024 〈En Route〉 — Dilston Gallery (런던)",
+      "2023 〈Refraction〉 — Bargehouse (런던)",
+      "2022 〈Parenthesis〉 — Copeland Gallery (런던)",
+      "2022 〈Falling Down〉 — Brixton Library (런던)"
+    ],
+    "overseas": true
   }
 ]
