@@ -23,4 +23,4 @@ if (a) {
   list.push({ name, nameEn: name, promoHash: hash });
   writeFileSync('promo.json', JSON.stringify(list, null, 2) + '\n');
 }
-console.log(`${name}\t${code}\thttps://gallery751.com/?code=${code}`);
+console.log(`${name}\t${code}`);
