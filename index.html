@@ -2470,12 +2470,27 @@ const ymd  = (d) => String(d || '').replace(/-/g, '.');
 
 /* 작가 추천 코드 이벤트 — 2026.12.31 구매 신청분까지.
    구매자는 정가에서 3% 할인(751 몫에서 부담), 코드 주인 작가에게 정가의 2%. 작가 정산은 할인과 무관하게 정가 기준.
-   코드는 artists.json 의 promoCode, 없으면 작가 ID 에서 하이픈을 뺀 대문자 + 75126(jia-hyeok → JIAHYEOK75126). */
-const PROMO = { until: Date.parse('2026-12-31T23:59:59+09:00'), rate: 0.03 };
+   코드는 작가마다 무작위(751-XXXXX)로 만들고, artists.json 에는 코드 자체가 아니라 promoHash(SHA-256 앞 24자리)만 둡니다.
+   작가는 코드를 붙인 링크(gallery751.com/?code=751-XXXXX)를 공유하면 되고, 그 링크로 들어온 사람은 어느 작품을 사든 코드가 자동으로 들어갑니다. */
+const PROMO = { until: Date.parse('2026-12-31T23:59:59+09:00'), rate: 0.03, key: 'g751-code' };
 const promoOn    = () => Date.now() <= PROMO.until;
 const promoNorm  = (v) => String(v || '').replace(/[^A-Za-z0-9]/g, '').toUpperCase();
-const promoCodeOf = (a) => a?.promoCode ? promoNorm(a.promoCode) : (a?.id ? promoNorm(a.id) + '75126' : '');
-const promoFind  = (v) => { const c = promoNorm(v); return c ? ARTISTS.find(a => promoCodeOf(a) === c) || null : null; };
+async function promoFind(v){
+  const c = promoNorm(v);
+  if (!c || !window.crypto?.subtle) return null;
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(c));
+  const hex = [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, '0')).join('').slice(0, 24);
+  return ARTISTS.find(a => a.promoHash === hex) || null;
+}
+/* ?code= 로 들어오면 이벤트 기간 동안 기억해 둡니다 */
+const PROMO_SAVED = (() => {
+  try {
+    if (!promoOn()) { localStorage.removeItem(PROMO.key); return ''; }
+    const q = new URLSearchParams(location.search).get('code');
+    if (q && promoNorm(q)) localStorage.setItem(PROMO.key, String(q).trim().toUpperCase().slice(0, 20));
+    return localStorage.getItem(PROMO.key) || '';
+  } catch (e) { return ''; }
+})();
 const promoPrice = (p) => Math.floor(Number(p) * (1 - PROMO.rate) / 100) * 100;   /* 100원 미만 버림 */
 
 let WORKS = [], ARTISTS = [], FOUNDING = { capacity: 10, artists: [] }, JOURNAL = [];
@@ -2964,10 +2979,12 @@ function wireBuy(w){
   const codeIn = form.querySelector('#b-code'), codeMsg = form.querySelector('#b-code-msg');
   const codeHint = codeMsg ? codeMsg.textContent : '';
   const en = () => LANG === 'en';
-  const checkCode = () => {
+  let codeSeq = 0;
+  const checkCode = async () => {
     if (!codeIn) return null;
-    const raw = codeIn.value.trim();
-    const a = promoFind(raw);
+    const raw = codeIn.value.trim(), seq = ++codeSeq;
+    const a = await promoFind(raw);
+    if (seq !== codeSeq) return a;   /* 더 늦게 친 글자가 있으면 그쪽 결과로 표시 */
     codeMsg.style.color = '';
     if (!raw) codeMsg.textContent = codeHint;
     else if (a) codeMsg.textContent = en()
@@ -2977,20 +2994,24 @@ function wireBuy(w){
       : '코드를 찾을 수 없습니다. 작가에게 받은 코드를 다시 확인해 주세요.'; codeMsg.style.color = '#C4562B'; }
     return raw ? a : null;
   };
-  if (codeIn) codeIn.addEventListener('input', checkCode);
+  if (codeIn) {
+    codeIn.addEventListener('input', checkCode);
+    if (PROMO_SAVED && !codeIn.value) { codeIn.value = PROMO_SAVED; checkCode(); }
+  }
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const err = form.querySelector('#buy-err');
     err.style.display = 'none';
-    const promoArtist = checkCode();
+    const promoArtist = await checkCode();
     if (codeIn && codeIn.value.trim() && !promoArtist) { codeIn.focus(); return; }
     submit.disabled = true; submit.textContent = '보내는 중...';
     const data = Object.fromEntries(new FormData(form).entries());
     data.agreeNewsletter = !!form.querySelector('#c-news')?.checked;
     delete data.promoCode;
     if (promoArtist && promoOn()) {
-      data.promoCode = promoCodeOf(promoArtist);
+      data.promoCode = String(codeIn.value).trim().toUpperCase().slice(0, 20);
+      try { localStorage.setItem(PROMO.key, data.promoCode); } catch (e) {}
       data.promoArtist = promoArtist.name;
       data.promoPrice = String(promoPrice(w.price));
     }
