@@ -2471,6 +2471,7 @@ const ymd  = (d) => String(d || '').replace(/-/g, '.');
 /* 작가 추천 코드 이벤트 — 2026.12.31 구매 신청분까지.
    구매자는 정가에서 3% 할인(751 몫에서 부담), 코드 주인 작가에게 정가의 2%. 작가 정산은 할인과 무관하게 정가 기준.
    코드는 작가마다 무작위(751-XXXXX)로 만들고, artists.json 에는 코드 자체가 아니라 promoHash(SHA-256 앞 24자리)만 둡니다.
+   사이트에 아직 안 올라간 작가(해외 작가 등)는 promo.json 에 둡니다. 새 코드는 node scripts/promo-code.mjs "이름" [작가ID]
    작가는 코드를 붙인 링크(gallery751.com/?code=751-XXXXX)를 공유하면 되고, 그 링크로 들어온 사람은 어느 작품을 사든 코드가 자동으로 들어갑니다. */
 const PROMO = { until: Date.parse('2026-12-31T23:59:59+09:00'), rate: 0.03, key: 'g751-code' };
 const promoOn    = () => Date.now() <= PROMO.until;
@@ -2480,7 +2481,8 @@ async function promoFind(v){
   if (!c || !window.crypto?.subtle) return null;
   const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(c));
   const hex = [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, '0')).join('').slice(0, 24);
-  return ARTISTS.find(a => a.promoHash === hex) || null;
+  if (!promoFind.extra) promoFind.extra = fetch('promo.json', { cache: 'no-cache' }).then(r => r.ok ? r.json() : []).catch(() => []);
+  return ARTISTS.find(a => a.promoHash === hex) || (await promoFind.extra).find(a => a.promoHash === hex) || null;
 }
 /* ?code= 로 들어오면 이벤트 기간 동안 기억해 둡니다 */
 const PROMO_SAVED = (() => {
