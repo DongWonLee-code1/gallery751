@@ -170,7 +170,8 @@
     ],
     "story": "종이 위에 수채와 아크릴로 작업합니다. 물감이 번지고 스며드는 과정을 따라가며 색면 추상을 그리고, 야자수가 선 풍경처럼 자연에서 만난 이미지도 함께 그립니다.\n추상 작업에서는 물감이 마르며 남기는 번짐의 경계가 그대로 화면의 형태가 되고, 풍경 작업에서는 마른 붓으로 끌어낸 잎의 결과 넉넉한 물로 번진 하늘이 한 화면 안에서 대비를 이룹니다.",
     "exhibitions": [],
-    "portrait": "artists/in-soyeon/portrait.jpg"
+    "portrait": "artists/in-soyeon/portrait.jpg",
+    "promoHash": "e31420d7cf075d1a1256a16e"
   },
   {
     "id": "rainy-wei",
@@ -190,7 +191,8 @@
       "단체전 — CP Projects Space, School of Visual Arts (뉴욕)",
       "단체전 — New York University Commons·Rosenberg Galleries (뉴욕)"
     ],
-    "hideSales": true
+    "hideSales": true,
+    "promoHash": "4f4e67544d05802f9930d136"
   },
   {
     "id": "kwon-hyoseon",
@@ -208,7 +210,8 @@
       "2025 단체전 — 잔상: 눈을 감아도 보이는, 인사1010 갤러리 (서울)",
       "2023 단체전 — 잠금해제, 누아갤러리",
       "2022 단체전 — 느린 향내: 네 작가의 공감각 실험 프로젝트, 서교예술실험센터 (서울)"
-    ]
+    ],
+    "promoHash": "5534fe6ebc272621bcfbe539"
   },
   {
     "id": "fung-ka-fai",
@@ -229,7 +232,8 @@
       "2025 Collection Hong Kong — 홍콩아트센터 Pao Galleries (홍콩)",
       "2025 〈The True Value of Art〉 — Soho House (홍콩)"
     ],
-    "portrait": "artists/fung-ka-fai/portrait.jpg"
+    "portrait": "artists/fung-ka-fai/portrait.jpg",
+    "promoHash": "1b196ff5ada391d89a7e9a1d"
   },
   {
     "id": "troy-liang",
@@ -252,7 +256,8 @@
       "2022 〈Parenthesis〉 — Copeland Gallery (런던)",
       "2022 〈Falling Down〉 — Brixton Library (런던)"
     ],
-    "overseas": true
+    "overseas": true,
+    "promoHash": "d2f5323b02f2f604b2c8324b"
   },
   {
     "id": "lyz-dizon",
@@ -277,7 +282,8 @@
       "2024 〈United Diversity 2: Resurgence〉 — Gateway Gallery (마닐라)"
     ],
     "portrait": "artists/lyz-dizon/portrait.jpg",
-    "overseas": true
+    "overseas": true,
+    "promoHash": "6ccc399cdeb3f6a915d88743"
   },
   {
     "id": "aryt",
@@ -291,6 +297,7 @@
     "exhibitions": [
       "Samaritans of Singapore 〈Colours of Hope〉 공모전·전시 (싱가포르)"
     ],
-    "overseas": true
+    "overseas": true,
+    "promoHash": "e8922ef618d7751bb08ee3fc"
   }
 ]

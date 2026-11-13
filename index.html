@@ -2485,6 +2485,10 @@ async function promoFind(v){
   return ARTISTS.find(a => a.promoHash === hex) || (await promoFind.extra).find(a => a.promoHash === hex) || null;
 }
 const promoPrice = (p) => Math.floor(Number(p) * (1 - PROMO.rate) / 100) * 100;   /* 100원 미만 버림 */
+/* 할인가 표기 — 해외 작가 작품은 작가가 정한 외화 가격에서 3%를 빼고 1단위 미만 버림 */
+const promoPriceText = (w) => w.priceForeign
+  ? fxText({ currency: w.priceForeign.currency, amount: Math.floor(Number(w.priceForeign.amount) * (1 - PROMO.rate)) })
+  : won(promoPrice(w.price));
 
 let WORKS = [], ARTISTS = [], FOUNDING = { capacity: 10, artists: [] }, JOURNAL = [];
 const artistOf = (id) => ARTISTS.find(a => a.id === id);
@@ -2981,8 +2985,8 @@ function wireBuy(w){
     codeMsg.style.color = '';
     if (!raw) codeMsg.textContent = codeHint;
     else if (a) codeMsg.textContent = en()
-      ? `Year-end promotion code applied. Price after 3% off: KRW ${promoPrice(w.price).toLocaleString('en-US')}`
-      : `연말 프로모션 코드가 적용되었습니다. 할인가 ${won(promoPrice(w.price))}`;
+      ? `Year-end promotion code applied. Price after 3% off: ${w.priceForeign ? promoPriceText(w) : 'KRW ' + promoPrice(w.price).toLocaleString('en-US')}`
+      : `연말 프로모션 코드가 적용되었습니다. 할인가 ${promoPriceText(w)}`;
     else { codeMsg.textContent = en() ? 'This code is not valid. Please check it and try again.'
       : '유효하지 않은 코드입니다. 코드를 다시 확인해 주세요.'; codeMsg.style.color = '#C4562B'; }
     return raw ? a : null;
@@ -3002,7 +3006,7 @@ function wireBuy(w){
     if (promoArtist && promoOn()) {
       data.promoCode = String(codeIn.value).trim().toUpperCase().slice(0, 20);
       data.promoArtist = promoArtist.name;
-      data.promoPrice = String(promoPrice(w.price));
+      data.promoPrice = promoPriceText(w);
     }
     data.source = VISIT.src || 'direct';
     data.referrer = VISIT.ref;
