@@ -2470,11 +2470,11 @@ const ymd  = (d) => String(d || '').replace(/-/g, '.');
 
 /* 작가 추천 코드 이벤트 — 2026.12.31 구매 신청분까지.
    구매자는 정가에서 3% 할인(751 몫에서 부담), 코드 주인 작가에게 정가의 2%. 작가 정산은 할인과 무관하게 정가 기준.
-   코드는 artists.json 의 promoCode, 없으면 작가 ID 에서 하이픈을 뺀 대문자(jia-hyeok → JIAHYEOK). */
+   코드는 artists.json 의 promoCode, 없으면 작가 ID 에서 하이픈을 뺀 대문자 + 75126(jia-hyeok → JIAHYEOK75126). */
 const PROMO = { until: Date.parse('2026-12-31T23:59:59+09:00'), rate: 0.03 };
 const promoOn    = () => Date.now() <= PROMO.until;
 const promoNorm  = (v) => String(v || '').replace(/[^A-Za-z0-9]/g, '').toUpperCase();
-const promoCodeOf = (a) => promoNorm(a?.promoCode || a?.id);
+const promoCodeOf = (a) => a?.promoCode ? promoNorm(a.promoCode) : (a?.id ? promoNorm(a.id) + '75126' : '');
 const promoFind  = (v) => { const c = promoNorm(v); return c ? ARTISTS.find(a => promoCodeOf(a) === c) || null : null; };
 const promoPrice = (p) => Math.floor(Number(p) * (1 - PROMO.rate) / 100) * 100;   /* 100원 미만 버림 */
 
