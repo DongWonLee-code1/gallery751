@@ -105,7 +105,14 @@
       "2025 갤러리U 신진작가 공모전",
       "2024 제2회 서울-한강 비엔날레 초대 작가",
       "단체전 20여 회 — 서울 · 뉴욕 · 부여 · 대전"
-    ]
+    ],
+    "artistPrice": {
+      "perHo": 60000,
+      "note": [
+        "2026년 상반기까지",
+        "대부분 SNS 판매"
+      ]
+    }
   },
   {
     "id": "hoohoo",
@@ -183,7 +190,8 @@
       "단체전 — Pratt Institute (뉴욕)",
       "단체전 — CP Projects Space, School of Visual Arts (뉴욕)",
       "단체전 — New York University Commons·Rosenberg Galleries (뉴욕)"
-    ]
+    ],
+    "hideSales": true
   },
   {
     "id": "kwon-hyoseon",
@@ -244,6 +252,45 @@
       "2023 〈Refraction〉 — Bargehouse (런던)",
       "2022 〈Parenthesis〉 — Copeland Gallery (런던)",
       "2022 〈Falling Down〉 — Brixton Library (런던)"
+    ],
+    "overseas": true
+  },
+  {
+    "id": "lyz-dizon",
+    "name": "Lyz Dizon",
+    "tagline": "옷을 차려입은 동물들로 일상의 감정과 관계를 따뜻하게 그립니다.",
+    "region": "필리핀 카비테",
+    "materials": [
+      "아크릴"
+    ],
+    "instagram": "@lyzdizon",
+    "story": "필리핀 카비테에서 활동하는 작가로, 공인회계사로 일하며 그림을 그립니다. 아크릴과 수채, 혼합 매체로 상상 속 인물과 표정이 살아 있는 동물을 그려 일상의 감정과 정체성, 사람 사이의 관계를 이야기합니다.\n따뜻한 흙빛 색감과 놀이하듯 자유로운 구성, 붓 자국이 남은 질감으로 익숙한 장면 속에서 작은 경이와 의미를 찾게 합니다. 작가에게 그림은 자신을 표현하는 일이자 다른 사람과 이어지는 방법입니다.\n2026년 프랑스 Circle Foundation for the Arts의 Art Star Award를 받았고, 파리의 온라인 갤러리 Singulart의 선정 작가로 활동하고 있습니다. 필리핀을 비롯해 말레이시아, 태국, 일본, 한국의 단체전에 꾸준히 참여해 왔습니다.",
+    "exhibitions": [
+      "2026 Hechyeomoyeo 국제 단체전 (서울)",
+      "2026 Osaka 국제 단체전 — Arrival Gallery, MAG Gallery (오사카)",
+      "2026 〈Luzon Art: Ang Pader na Di Maintindihan〉 — Diwa Gallery (타를락)",
+      "2026 〈Gunitang Lahi〉 — Las Casas Filipinas de Acuzar (케손시티)",
+      "2026 〈Unseen Threads〉 — UAS Gallery (마닐라)",
+      "2025 〈KAPWA: Tagpo ng Guhit at Diwa〉 — 1159 Creative Space (마카티)",
+      "2025 〈A Canvas of Care〉 — 필리핀 인권위원회 (케손시티)",
+      "2025 필리핀 독립 127주년 국제전 — Siam Kempinski Hotel (방콕)",
+      "2024 〈Brush of Cultures〉 국제전 — Stay at Momos (쿠알라룸푸르)",
+      "2024 〈United Diversity 2: Resurgence〉 — Gateway Gallery (마닐라)"
+    ],
+    "portrait": "artists/lyz-dizon/portrait.jpg",
+    "overseas": true
+  },
+  {
+    "id": "aryt",
+    "name": "ARyT",
+    "tagline": "어린 시절의 악몽과 환영을 부조리하고 초현실적인 화면으로 옮깁니다.",
+    "region": "싱가포르",
+    "materials": [
+      "아크릴"
+    ],
+    "story": "싱가포르에서 활동하는 회화 작가입니다. 부조리주의와 초현실주의에서 큰 영향을 받아, 생생한 상상과 독특한 환영, 어린 시절의 악몽에서 출발한 장면을 그립니다. 쉬는 시간에는 인형을 모으고 공포물을 즐깁니다.\n〈Deeztortia〉는 살아온 경험이 시간이 지나며 기억을 어떻게 비틀어 놓는지를 탐구합니다. 기억은 얼굴과 순간을 손에 잡히지 않는 조각으로 바꾸어, 평범했던 것이 낯설고 기괴하게 되돌아오게 합니다. 정해진 인물이나 사물이 아니라 감정의 잔여처럼 움직이는 형상들이, 현실을 넘어선 강렬한 색 속에서 흐릿한 얼굴과 부풀린 형태로 겹쳐 있습니다.\n〈A Rendition of Sins at Haw Par Villa〉는 싱가포르 하우파 빌라의 '죄의 박물관'에 얽힌 어린 시절의 악몽에서 출발해, 그곳의 기괴한 이미지와 도덕 신화를 다시 그린 작품입니다.",
+    "exhibitions": [
+      "Samaritans of Singapore 〈Colours of Hope〉 공모전·전시 (싱가포르)"
     ],
     "overseas": true
   }

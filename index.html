@@ -2871,7 +2871,7 @@ function detailHTML(w){
         ${w.year ? `<div><i>제작</i><span>${esc(w.year)}</span></div>` : ''}
         ${w.medium ? `<div><i>재료</i><span>${esc(w.medium)}</span></div>` : ''}
         ${w.size || w.sizeHo ? `<div><i>크기</i><span>${esc(w.size||'')}${w.sizeHo ? ` (${esc(w.sizeHo)}호)` : ''}</span></div>` : ''}
-        ${typeof w.framed === 'boolean' ? `<div><i>액자</i><span>${w.framed ? '포함' : '미포함'}</span></div>` : ''}
+        ${typeof w.framed === 'boolean' ? `<div><i>액자</i><span>${w.framed ? '포함' + (w.frameNote ? ' · ' + esc(w.frameNote) : '') : '미포함'}</span></div>` : ''}
       </div>
       <p class="m-price">${esc(priceText(w))}</p>
       ${fxNote(w) ? `<p class="m-ho">${esc(fxNote(w))}</p>` : ''}
@@ -3062,6 +3062,8 @@ function renderArtist(id){
   const primary = trades.filter(t => t.type !== 'resale');
   const resale  = trades.filter(t => t.type === 'resale');
   const ppho = pricePerHo(id);
+  /* 작가가 알려준 호당 가격(751 밖 거래) — 751 거래로 계산한 값이 있으면 그쪽을 씁니다 */
+  const ap = a.artistPrice && Number(a.artistPrice.perHo) > 0 ? a.artistPrice : null;
 
   const metaBits = [
     a.activity, a.region,
@@ -3092,6 +3094,8 @@ function renderArtist(id){
       <a class="ledger-more" href="#/records">전체 판매 기록 보기 →</a>
     </div>`;
   const soldWorks = mine.filter(w => (w.provenance || []).length).length;
+  /* 작가 요청으로 판매 기록 영역을 숨김 — 751 거래가 생기면 다시 보입니다 */
+  const hideSales = a.hideSales === true && !trades.length;
   const lastT = trades[trades.length - 1];
 
   artistView.innerHTML = `<div class="wrap">
@@ -3109,17 +3113,17 @@ function renderArtist(id){
     ${a.story ? `<p class="a-story clamp" id="a-story">${esc(a.story)}</p>
       <button class="a-more" type="button" data-more="story" hidden>더보기</button>` : ''}
     ${exh}${press}
-    <div class="a-stats">
+    ${hideSales ? '' : `<div class="a-stats">
       <div class="a-stat"><i>호당 가격</i>
-        <b>${ppho ? won(ppho) : '아직 산정 중'}</b>
-        ${ppho ? '' : '<small>거래 2건부터 표시합니다</small>'}</div>
+        <b>${ppho ? won(ppho) : (ap ? won(ap.perHo) : '아직 산정 중')}</b>
+        ${ppho ? '' : (ap ? `<small>${esc(['작가 제공', ...(ap.note || [])].join(' · '))}</small>` : '<small>거래 2건부터 표시합니다</small>')}</div>
       <div class="a-stat"><i>거래</i><b>${trades.length}건</b></div>
       <div class="a-stat"><i>판매된 작품</i><b>${soldWorks}점</b><small>등록 ${mine.length}점</small></div>
       <div class="a-stat"><i>최근 거래</i><b>${lastT ? ymd(lastT.date) : '—'}</b>${lastT ? `<small>${won(lastT.price)}</small>` : ''}</div>
     </div>
     <p class="a-onlyhere">Gallery 751에서 일어난 거래만 기록합니다.</p>
     ${chartBlock}
-    ${salesBlock}
+    ${salesBlock}`}
     <div class="a-works">
       <span class="label">${esc(a.name)}의 작품</span>
       <div class="grid" id="a-grid" style="margin-top:24px">${mine.map(cardHTML).join('')}</div>
@@ -3884,6 +3888,11 @@ const I18N = {
     "예약중": "Reserved",
     "아직 산정 중": "Not yet calculated",
     "거래 2건부터 표시합니다": "Shown from the second sale onward",
+    "작가 제공": "Provided by the artist",
+    "유리 있음": "with glass",
+    "유리 없음": "no glass",
+    "2026년 상반기까지": "Until the first half of 2026",
+    "대부분 SNS 판매": "Mostly sold via social media",
     "호당 가격": "Price per unit size",
     "거래": "Sales",
     "작가 판매 (1차)": "Primary sales",

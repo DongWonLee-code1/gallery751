@@ -2179,5 +2179,172 @@
       "currency": "GBP",
       "amount": 1500
     }
+  },
+  {
+    "id": "w-ld-01",
+    "no": "G751-0092",
+    "artistId": "lyz-dizon",
+    "title": "In The Study",
+    "medium": "캔버스에 아크릴",
+    "size": "41 × 30 cm",
+    "sizeHo": 6,
+    "price": 640000,
+    "status": "available",
+    "framed": true,
+    "frameNote": "55 × 44 cm · 유리 있음",
+    "images": [
+      "works/w-ld-01/main.jpg",
+      "works/w-ld-01/2.jpg"
+    ],
+    "tags": [
+      "회화",
+      "구상"
+    ],
+    "custody": "none",
+    "provenance": [],
+    "listedAt": "2026-11-13",
+    "priceForeign": {
+      "currency": "USD",
+      "amount": 480
+    }
+  },
+  {
+    "id": "w-ld-02",
+    "no": "G751-0093",
+    "artistId": "lyz-dizon",
+    "title": "The Cozy Little Painter",
+    "medium": "캔버스에 아크릴",
+    "size": "36 × 25 cm",
+    "sizeHo": 5,
+    "price": 600000,
+    "status": "available",
+    "framed": true,
+    "frameNote": "50 × 39 cm · 유리 있음",
+    "images": [
+      "works/w-ld-02/main.jpg",
+      "works/w-ld-02/2.jpg"
+    ],
+    "tags": [
+      "회화",
+      "구상"
+    ],
+    "custody": "none",
+    "provenance": [],
+    "listedAt": "2026-11-13",
+    "priceForeign": {
+      "currency": "USD",
+      "amount": 450
+    }
+  },
+  {
+    "id": "w-ld-03",
+    "no": "G751-0094",
+    "artistId": "lyz-dizon",
+    "title": "In Session",
+    "medium": "캔버스에 아크릴",
+    "size": "40 × 30 cm",
+    "sizeHo": 6,
+    "price": 640000,
+    "status": "available",
+    "framed": true,
+    "frameNote": "44 × 34 cm · 유리 없음",
+    "images": [
+      "works/w-ld-03/main.jpg",
+      "works/w-ld-03/2.jpg"
+    ],
+    "tags": [
+      "회화",
+      "구상"
+    ],
+    "custody": "none",
+    "provenance": [],
+    "listedAt": "2026-11-13",
+    "priceForeign": {
+      "currency": "USD",
+      "amount": 480
+    }
+  },
+  {
+    "id": "w-ld-04",
+    "no": "G751-0095",
+    "artistId": "lyz-dizon",
+    "title": "Stillness in Bloom",
+    "medium": "캔버스에 아크릴",
+    "size": "61 × 46 cm",
+    "sizeHo": 12,
+    "price": 670000,
+    "status": "available",
+    "framed": true,
+    "frameNote": "73 × 58 cm · 유리 없음",
+    "images": [
+      "works/w-ld-04/main.jpg",
+      "works/w-ld-04/2.jpg"
+    ],
+    "tags": [
+      "회화",
+      "구상"
+    ],
+    "custody": "none",
+    "provenance": [],
+    "listedAt": "2026-11-13",
+    "priceForeign": {
+      "currency": "USD",
+      "amount": 500
+    }
+  },
+  {
+    "id": "w-ar-01",
+    "no": "G751-0096",
+    "artistId": "aryt",
+    "title": "Deeztortia",
+    "year": 2026,
+    "medium": "캔버스에 아크릴",
+    "size": "100 × 120 cm",
+    "sizeHo": 50,
+    "price": 1340000,
+    "status": "available",
+    "images": [
+      "works/w-ar-01/main.jpg",
+      "works/w-ar-01/2.jpg",
+      "works/w-ar-01/3.jpg"
+    ],
+    "tags": [
+      "회화",
+      "구상"
+    ],
+    "custody": "none",
+    "provenance": [],
+    "listedAt": "2026-11-13",
+    "priceForeign": {
+      "currency": "USD",
+      "amount": 1000
+    }
+  },
+  {
+    "id": "w-ar-02",
+    "no": "G751-0097",
+    "artistId": "aryt",
+    "title": "A Rendition of Sins at Haw Par Villa",
+    "year": 2023,
+    "medium": "캔버스에 아크릴",
+    "size": "45 × 60 cm",
+    "sizeHo": 12,
+    "price": 800000,
+    "status": "available",
+    "images": [
+      "works/w-ar-02/main.jpg",
+      "works/w-ar-02/2.jpg"
+    ],
+    "tags": [
+      "회화",
+      "구상"
+    ],
+    "custody": "none",
+    "provenance": [],
+    "listedAt": "2026-11-13",
+    "priceForeign": {
+      "currency": "USD",
+      "amount": 600
+    }
   }
 ]
