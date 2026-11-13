@@ -3093,6 +3093,23 @@ function renderArtist(id){
         : `<p class="ledger-empty">아직 Gallery 751에서 판매된 기록이 없습니다.</p>`}
       <a class="ledger-more" href="#/records">전체 판매 기록 보기 →</a>
     </div>`;
+  /* 작가가 알려준 751 밖 판매 기록 — 751 거래 통계(호당 가격·거래 수)에는 넣지 않습니다 */
+  const ext = (Array.isArray(a.externalSales) ? a.externalSales : []).slice().sort((x, y) => (y.year || 0) - (x.year || 0));
+  const extBlock = ext.length ? `<div class="a-sales a-ext">
+      <span class="label">751 밖 판매 기록 · 작가 제공</span>
+      <table class="ledger"><thead><tr>
+        <th>연도</th><th>작품</th><th class="c-size">크기</th><th class="c-kind">판매처</th><th class="num">금액</th>
+      </tr></thead><tbody>${ext.map(x => {
+        const sub = [x.madeYear, x.medium].filter(Boolean).join(' · ');
+        return `<tr>
+          <td class="d">${esc(x.year || '')}</td>
+          <td><span class="lw"><span><b>${esc(x.title || '')}</b>${sub ? `<small>${esc(sub)}</small>` : ''}</span></span></td>
+          <td class="c-size">${esc(x.size || '')}${x.sizeHo ? ` (${esc(x.sizeHo)}호)` : ''}</td>
+          <td class="c-kind">${esc(x.venue || '')}${x.proof ? ` <span class="kind">증빙 확인</span>` : ''}</td>
+          <td class="num">${won(x.price)}</td>
+        </tr>`; }).join('')}</tbody></table>
+      <p class="a-onlyhere">작가가 알려준 판매 기록입니다. 위 호당 가격·거래 수에는 넣지 않습니다.</p>
+    </div>` : '';
   const soldWorks = mine.filter(w => (w.provenance || []).length).length;
   /* 작가 요청으로 판매 기록 영역을 숨김 — 751 거래가 생기면 다시 보입니다 */
   const hideSales = a.hideSales === true && !trades.length;
@@ -3124,6 +3141,7 @@ function renderArtist(id){
     <p class="a-onlyhere">Gallery 751에서 일어난 거래만 기록합니다.</p>
     ${chartBlock}
     ${salesBlock}`}
+    ${extBlock}
     <div class="a-works">
       <span class="label">${esc(a.name)}의 작품</span>
       <div class="grid" id="a-grid" style="margin-top:24px">${mine.map(cardHTML).join('')}</div>
@@ -3889,6 +3907,11 @@ const I18N = {
     "아직 산정 중": "Not yet calculated",
     "거래 2건부터 표시합니다": "Shown from the second sale onward",
     "작가 제공": "Provided by the artist",
+    "751 밖 판매 기록 · 작가 제공": "Sales outside Gallery 751 · provided by the artist",
+    "판매처": "Where sold",
+    "연도": "Year",
+    "증빙 확인": "Documented",
+    "작가가 알려준 판매 기록입니다. 위 호당 가격·거래 수에는 넣지 않습니다.": "Sales reported by the artist. Not included in the price per ho or sales count above.",
     "유리 있음": "with glass",
     "유리 없음": "no glass",
     "2026년 상반기까지": "Until the first half of 2026",

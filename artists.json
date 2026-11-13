@@ -80,6 +80,49 @@
         "label": "작가 홈페이지",
         "url": "https://seunghojang.artspoon.io"
       }
+    ],
+    "externalSales": [
+      {
+        "year": 2021,
+        "title": "see975",
+        "madeYear": 2021,
+        "medium": "캔버스에 아크릴",
+        "size": "33 × 24 cm",
+        "sizeHo": 4,
+        "price": 500000,
+        "venue": "개인전 〈Improvised Narratives〉, ADM Gallery (서울)"
+      },
+      {
+        "year": 2021,
+        "title": "see974",
+        "madeYear": 2021,
+        "medium": "캔버스에 아크릴",
+        "size": "53 × 46 cm",
+        "sizeHo": 10,
+        "price": 1000000,
+        "venue": "개인전 〈Improvised Narratives〉, ADM Gallery (서울)"
+      },
+      {
+        "year": 2022,
+        "title": "see1196",
+        "madeYear": 2022,
+        "medium": "캔버스에 아크릴",
+        "size": "53 × 46 cm",
+        "sizeHo": 10,
+        "price": 1300000,
+        "venue": "단체전 〈AkunstGallery Exhibition〉, 마롱197 (서울)"
+      },
+      {
+        "year": 2018,
+        "title": "See",
+        "madeYear": 2017,
+        "medium": "캔버스에 유채",
+        "size": "162 × 130.3 cm",
+        "sizeHo": 100,
+        "price": 8000000,
+        "venue": "광주시립미술관 소장",
+        "proof": true
+      }
     ]
   },
   {
