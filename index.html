@@ -2468,6 +2468,16 @@ const esc  = (v) => String(v ?? '').replace(/[&<>"']/g, c =>
   ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
 const ymd  = (d) => String(d || '').replace(/-/g, '.');
 
+/* 작가 추천 코드 이벤트 — 2026.12.31 구매 신청분까지.
+   구매자는 정가에서 3% 할인(751 몫에서 부담), 코드 주인 작가에게 정가의 2%. 작가 정산은 할인과 무관하게 정가 기준.
+   코드는 artists.json 의 promoCode, 없으면 작가 ID 에서 하이픈을 뺀 대문자(jia-hyeok → JIAHYEOK). */
+const PROMO = { until: Date.parse('2026-12-31T23:59:59+09:00'), rate: 0.03 };
+const promoOn    = () => Date.now() <= PROMO.until;
+const promoNorm  = (v) => String(v || '').replace(/[^A-Za-z0-9]/g, '').toUpperCase();
+const promoCodeOf = (a) => promoNorm(a?.promoCode || a?.id);
+const promoFind  = (v) => { const c = promoNorm(v); return c ? ARTISTS.find(a => promoCodeOf(a) === c) || null : null; };
+const promoPrice = (p) => Math.floor(Number(p) * (1 - PROMO.rate) / 100) * 100;   /* 100원 미만 버림 */
+
 let WORKS = [], ARTISTS = [], FOUNDING = { capacity: 10, artists: [] }, JOURNAL = [];
 const artistOf = (id) => ARTISTS.find(a => a.id === id);
 const worksOf  = (id) => WORKS.filter(w => w.artistId === id);
@@ -2902,6 +2912,8 @@ function buyFormHTML(w){
       <div class="field"><label for="b-region">배송 예정 지역</label><input id="b-region" name="region" type="text" required placeholder="예: 서울 마포구"></div>
       <div class="field"><label for="b-place">어디에 걸 예정인가요</label><input id="b-place" name="place" type="text" placeholder="선택"></div>
       <div class="field"><label for="b-message">작가에게 전할 말</label><textarea id="b-message" name="message" placeholder="선택"></textarea></div>
+      ${promoOn() && Number(w.price) > 0 ? `<div class="field"><label for="b-code">작가 추천 코드</label><input id="b-code" name="promoCode" type="text" placeholder="선택" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="20">
+        <p class="fineprint" id="b-code-msg" style="margin-top:8px">작가에게 받은 코드를 넣으면 3% 할인됩니다. 12월 31일 구매 신청분까지 적용됩니다.</p></div>` : ''}
       <div class="field"><label>액자를 함께 원하시나요</label>
         <div class="radio">
           <label><input type="radio" name="framed" value="예"> 예</label>
@@ -2949,14 +2961,39 @@ function wireBuy(w){
   modalIn.querySelector('#m-back').addEventListener('click', () => openWork(w.id, false));
   const form = modalIn.querySelector('#buy-form');
   const submit = form.querySelector('#buy-submit');
+  const codeIn = form.querySelector('#b-code'), codeMsg = form.querySelector('#b-code-msg');
+  const codeHint = codeMsg ? codeMsg.textContent : '';
+  const en = () => LANG === 'en';
+  const checkCode = () => {
+    if (!codeIn) return null;
+    const raw = codeIn.value.trim();
+    const a = promoFind(raw);
+    codeMsg.style.color = '';
+    if (!raw) codeMsg.textContent = codeHint;
+    else if (a) codeMsg.textContent = en()
+      ? `${a.nameEn || a.name}'s code applied. Price after 3% off: KRW ${promoPrice(w.price).toLocaleString('en-US')}`
+      : `${a.name} 작가 코드가 적용되었습니다. 할인가 ${won(promoPrice(w.price))}`;
+    else { codeMsg.textContent = en() ? 'We could not find this code. Please check the code the artist gave you.'
+      : '코드를 찾을 수 없습니다. 작가에게 받은 코드를 다시 확인해 주세요.'; codeMsg.style.color = '#C4562B'; }
+    return raw ? a : null;
+  };
+  if (codeIn) codeIn.addEventListener('input', checkCode);
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const err = form.querySelector('#buy-err');
     err.style.display = 'none';
+    const promoArtist = checkCode();
+    if (codeIn && codeIn.value.trim() && !promoArtist) { codeIn.focus(); return; }
     submit.disabled = true; submit.textContent = '보내는 중...';
     const data = Object.fromEntries(new FormData(form).entries());
     data.agreeNewsletter = !!form.querySelector('#c-news')?.checked;
+    delete data.promoCode;
+    if (promoArtist && promoOn()) {
+      data.promoCode = promoCodeOf(promoArtist);
+      data.promoArtist = promoArtist.name;
+      data.promoPrice = String(promoPrice(w.price));
+    }
     data.source = VISIT.src || 'direct';
     data.referrer = VISIT.ref;
     try {
@@ -3862,6 +3899,8 @@ const I18N = {
     "배송 예정 지역": "Delivery area",
     "어디에 걸 예정인가요": "Where do you plan to hang it?",
     "작가에게 전할 말": "Anything for the artist",
+    "작가 추천 코드": "Artist referral code",
+    "작가에게 받은 코드를 넣으면 3% 할인됩니다. 12월 31일 구매 신청분까지 적용됩니다.": "Enter a code from an artist for 3% off. Valid for purchase requests made by 31 December.",
     "액자를 함께 원하시나요": "Would you like it framed?",
     "예": "Yes",
     "아니오": "No",

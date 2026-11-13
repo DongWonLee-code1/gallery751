@@ -106,7 +106,7 @@ const TABS = {
   purchase: {
     name: '구매 신청', status: '상태', list: ORDER, freeze: 3,
     cols: [
-      ['접수일시', 125], ['상태', 95], ['작품', 160], ['작가', 100], ['가격', 90], ['이름', 100],
+      ['접수일시', 125], ['상태', 95], ['작품', 160], ['작가', 100], ['가격', 90], ['추천 코드', 100], ['코드 작가', 90], ['할인가', 90], ['이름', 100],
       ['연락처', 160], ['지역', 110], ['걸 곳', 150], ['액자', 70], ['보관', 90], ['전할 말', 260],
       ['청약철회 동의', 90], ['재판매 동의', 90], ['소식 수신', 80], ['메모', 220], ['작품 ID', 90], ['유입', 70], ['이전 페이지', 160],
     ],
@@ -156,6 +156,7 @@ function doPost(e) {
       case 'purchase':
         addRow(ss, 'purchase', Object.assign({
           '접수일시': at, '상태': '신규', '작품': t(d.workTitle), '작가': t(d.artist), '가격': t(d.price),
+          '추천 코드': t(d.promoCode), '코드 작가': t(d.promoArtist), '할인가': t(d.promoPrice),
           '이름': t(d.name), '연락처': t(d.contact), '지역': t(d.region), '걸 곳': t(d.place), '액자': t(d.framed),
           '보관': t(d.custody), '전할 말': t(d.message), '청약철회 동의': yes(d.agreeWithdraw),
           '재판매 동의': yes(d.agreeRoyalty), '소식 수신': yes(d.agreeNewsletter), '작품 ID': t(d.workId),
