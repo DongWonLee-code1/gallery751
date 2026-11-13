@@ -47,7 +47,7 @@ const SPECS = {
       /* 작가 추천 코드 이벤트(2026.12.31 신청분까지) — 코드, 코드 주인 작가, 3% 할인가 */
       promoCode: 20, promoArtist: 60, promoPrice: 20,
     },
-    subject: (r) => `[구매신청] ${r.workNo ? r.workNo + ' ' : ''}「${r.workTitle || '작품'}」 · ${r.artist || ''} · ${r.name}${r.promoCode ? ' · 코드 ' + r.promoCode : ''}`,
+    subject: (r) => `[구매신청] ${r.workNo ? r.workNo + ' ' : ''}「${r.workTitle || '작품'}」 · ${r.artist || ''} · ${r.name}${r.promoCode ? ' · 연말 프로모션 ' + r.promoCode : ''}`,
   },
   storage_notify: {
     to: 'inquiries',

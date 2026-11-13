@@ -2470,7 +2470,7 @@ const esc  = (v) => String(v ?? '').replace(/[&<>"']/g, c =>
   ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
 const ymd  = (d) => String(d || '').replace(/-/g, '.');
 
-/* 작가 추천 코드 이벤트 — 2026.12.31 구매 신청분까지.
+/* 연말 프로모션(작가별 코드) — 2026.12.31 구매 신청분까지.
    구매자는 정가에서 3% 할인(751 몫에서 부담), 코드 주인 작가에게 정가의 2%. 작가 정산은 할인과 무관하게 정가 기준.
    코드는 작가마다 무작위(751-XXXXX)로 만들고, artists.json 에는 코드 자체가 아니라 promoHash(SHA-256 앞 24자리)만 둡니다.
    사이트에 아직 안 올라간 작가(해외 작가 등)는 promo.json 에 둡니다. 새 코드는 node scripts/promo-code.mjs "이름" [작가ID]
@@ -2943,8 +2943,8 @@ function buyFormHTML(w){
       <div class="field"><label for="b-region">배송 예정 지역</label><input id="b-region" name="region" type="text" required placeholder="예: 서울 마포구"></div>
       <div class="field"><label for="b-place">어디에 걸 예정인가요</label><input id="b-place" name="place" type="text" placeholder="선택"></div>
       <div class="field"><label for="b-message">작가에게 전할 말</label><textarea id="b-message" name="message" placeholder="선택"></textarea></div>
-      ${promoOn() && Number(w.price) > 0 ? `<div class="field"><label for="b-code">프로모션 코드</label><input id="b-code" name="promoCode" type="text" placeholder="선택" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="20">
-        <p class="fineprint" id="b-code-msg" style="margin-top:8px">프로모션 코드를 입력하면 3% 할인됩니다. 12월 31일 구매 신청분까지 적용됩니다.</p></div>` : ''}
+      ${promoOn() && Number(w.price) > 0 ? `<div class="field"><label for="b-code">연말 프로모션 코드</label><input id="b-code" name="promoCode" type="text" placeholder="선택" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="20">
+        <p class="fineprint" id="b-code-msg" style="margin-top:8px">연말 프로모션 — 코드를 입력하면 3% 할인됩니다. 12월 31일 구매 신청분까지 적용됩니다.</p></div>` : ''}
       <div class="field"><label>액자를 함께 원하시나요</label>
         <div class="radio">
           <label><input type="radio" name="framed" value="예"> 예</label>
@@ -3004,8 +3004,8 @@ function wireBuy(w){
     codeMsg.style.color = '';
     if (!raw) codeMsg.textContent = codeHint;
     else if (a) codeMsg.textContent = en()
-      ? `Promotion code applied. Price after 3% off: KRW ${promoPrice(w.price).toLocaleString('en-US')}`
-      : `프로모션 코드가 적용되었습니다. 할인가 ${won(promoPrice(w.price))}`;
+      ? `Year-end promotion code applied. Price after 3% off: KRW ${promoPrice(w.price).toLocaleString('en-US')}`
+      : `연말 프로모션 코드가 적용되었습니다. 할인가 ${won(promoPrice(w.price))}`;
     else { codeMsg.textContent = en() ? 'This code is not valid. Please check it and try again.'
       : '유효하지 않은 코드입니다. 코드를 다시 확인해 주세요.'; codeMsg.style.color = '#C4562B'; }
     return raw ? a : null;
@@ -3951,8 +3951,8 @@ const I18N = {
     "배송 예정 지역": "Delivery area",
     "어디에 걸 예정인가요": "Where do you plan to hang it?",
     "작가에게 전할 말": "Anything for the artist",
-    "프로모션 코드": "Promotion code",
-    "프로모션 코드를 입력하면 3% 할인됩니다. 12월 31일 구매 신청분까지 적용됩니다.": "Enter a promotion code for 3% off. Valid for purchase requests made by 31 December.",
+    "연말 프로모션 코드": "Year-end promotion code",
+    "연말 프로모션 — 코드를 입력하면 3% 할인됩니다. 12월 31일 구매 신청분까지 적용됩니다.": "Year-end promotion: enter a code for 3% off. Valid for purchase requests made by 31 December.",
     "액자를 함께 원하시나요": "Would you like it framed?",
     "예": "Yes",
     "아니오": "No",
