@@ -130,6 +130,7 @@
   },
   {
     "id": "hissing",
+    "lowPriority": true,
     "name": "히싱",
     "tagline": "부재의 실재를 증명하는 작가",
     "region": "서울",
@@ -205,6 +206,7 @@
   },
   {
     "id": "in-soyeon",
+    "lowPriority": true,
     "name": "인소연",
     "tagline": "색이 번지고 스며드는 자리를 따라 그립니다.",
     "materials": [

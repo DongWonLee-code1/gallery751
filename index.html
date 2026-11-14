@@ -2597,7 +2597,7 @@ function renderGrid(){
     g.works.push(w);
   }
   /* 해외 작가(artists.json의 overseas)를 먼저. 나머지 순서는 그대로 둡니다 */
-  groups.sort((x, y) => isOverseas(y.id) - isOverseas(x.id));
+  groups.sort((x, y) => isLow(x.id) - isLow(y.id) || isOverseas(y.id) - isOverseas(x.id));
   byArtist.innerHTML = groups.map(g => {
     const a = artistOf(g.id);
     const meta = [a?.activity, a?.region, (a?.materials||[]).join(', ')].filter(Boolean).join(' · ');
@@ -2658,6 +2658,8 @@ function pickPerArtist(works, n = HOME_PER_ARTIST){
 
 /* 해외 작가 작품을 먼저 놓고, 그 뒤에 국내 작가 작품을 놓습니다 */
 const isOverseas = (id) => artistOf(id)?.overseas === true;
+/* artists.json의 lowPriority — 사진 품질이 아쉬운 작가는 홈에서 빼고 목록에서는 맨 뒤로 */
+const isLow = (id) => artistOf(id)?.lowPriority === true;
 function overseasFirst(works){
   return [
     ...pickPerArtist(works.filter(w => isOverseas(w.artistId))),
@@ -2672,7 +2674,7 @@ function renderTicker(){
   if (!WORKS.length) { sec.hidden = true; return; }
   const HERO_WORK = 'w-rw-01';   /* 맨 위에 크게 건 작품은 목록에서 뺍니다 */
   /* 무작위 선택은 처음 한 번만. 모바일은 스크롤할 때 주소창이 접히며 resize가 계속 일어나므로, 다시 그려도 같은 작품을 씁니다 */
-  if (!HOME_PICK) HOME_PICK = overseasFirst(WORKS.filter(w => w.id !== HERO_WORK && w.images?.[0] && Number(w.price) > 0 && !String(w.artistId || '').startsWith('sample')));
+  if (!HOME_PICK) HOME_PICK = overseasFirst(WORKS.filter(w => w.id !== HERO_WORK && !isLow(w.artistId) && w.images?.[0] && Number(w.price) > 0 && !String(w.artistId || '').startsWith('sample')));
   const list = HOME_PICK;
   grid.innerHTML = list.map((w, k) => {
     const a = artistOf(w.artistId);
@@ -2744,7 +2746,7 @@ function renderHeroSlides(){
   const label = document.getElementById('hg-label');
   if (!box || !label || box.dataset.ready) return;
   const firstId = box.querySelector('.hg-media')?.dataset.id;
-  const pool = WORKS.filter(w => w.images?.[0] && Number(w.price) > 0 && !String(w.artistId || '').startsWith('sample'));
+  const pool = WORKS.filter(w => w.images?.[0] && !isLow(w.artistId) && Number(w.price) > 0 && !String(w.artistId || '').startsWith('sample'));
   const first = pool.find(w => w.id === firstId);
   const rest = overseasFirst(pool.filter(w => w.id !== firstId));
   const list = first ? [first, ...rest] : rest;
@@ -3059,7 +3061,7 @@ function renderArtistList(){
   const real = ARTISTS.filter(a => !String(a.id).startsWith('sample'));
   const latest = id => WORKS.filter(w => w.artistId === id).map(w => String(w.listedAt || '')).sort().pop() || '';
   const list = real.filter(a => worksOf(a.id).length)
-    .sort((x, y) => latest(y.id).localeCompare(latest(x.id)) || String(x.id).localeCompare(String(y.id)));
+    .sort((x, y) => isLow(x.id) - isLow(y.id) || latest(y.id).localeCompare(latest(x.id)) || String(x.id).localeCompare(String(y.id)));
   box.innerHTML = list.map(a => {
     const ws = worksOf(a.id);
     const img = a.portrait || ws[0]?.images?.[0] || '';
