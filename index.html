@@ -2468,6 +2468,28 @@ const esc  = (v) => String(v ?? '').replace(/[&<>"']/g, c =>
   ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
 const ymd  = (d) => String(d || '').replace(/-/g, '.');
 
+/* 연말 프로모션(작가별 코드) — 2026.12.31 구매 신청분까지.
+   구매자는 정가에서 3% 할인(751 몫에서 부담), 코드 주인 작가에게 정가의 2%. 작가 정산은 할인과 무관하게 정가 기준.
+   코드는 작가마다 무작위(751-XXXXX)로 만들고, artists.json 에는 코드 자체가 아니라 promoHash(SHA-256 앞 24자리)만 둡니다.
+   사이트에 아직 안 올라간 작가(해외 작가 등)는 promo.json 에 둡니다. 새 코드는 node scripts/promo-code.mjs "이름" [작가ID]
+   구매자가 구매 신청서의 '프로모션 코드' 칸에 직접 입력하면 어느 작품이든 할인됩니다. */
+const PROMO = { until: Date.parse('2026-12-31T23:59:59+09:00'), rate: 0.03 };
+const promoOn    = () => Date.now() <= PROMO.until;
+const promoNorm  = (v) => String(v || '').replace(/[^A-Za-z0-9]/g, '').toUpperCase();
+async function promoFind(v){
+  const c = promoNorm(v);
+  if (!c || !window.crypto?.subtle) return null;
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(c));
+  const hex = [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, '0')).join('').slice(0, 24);
+  if (!promoFind.extra) promoFind.extra = fetch('promo.json', { cache: 'no-cache' }).then(r => r.ok ? r.json() : []).catch(() => []);
+  return ARTISTS.find(a => a.promoHash === hex) || (await promoFind.extra).find(a => a.promoHash === hex) || null;
+}
+const promoPrice = (p) => Math.floor(Number(p) * (1 - PROMO.rate) / 100) * 100;   /* 100원 미만 버림 */
+/* 할인가 표기 — 해외 작가 작품은 작가가 정한 외화 가격에서 3%를 빼고 1단위 미만 버림 */
+const promoPriceText = (w) => w.priceForeign
+  ? fxText({ currency: w.priceForeign.currency, amount: Math.floor(Number(w.priceForeign.amount) * (1 - PROMO.rate)) })
+  : won(promoPrice(w.price));
+
 let WORKS = [], ARTISTS = [], FOUNDING = { capacity: 10, artists: [] }, JOURNAL = [];
 const artistOf = (id) => ARTISTS.find(a => a.id === id);
 const worksOf  = (id) => WORKS.filter(w => w.artistId === id);
@@ -2902,6 +2924,8 @@ function buyFormHTML(w){
       <div class="field"><label for="b-region">배송 예정 지역</label><input id="b-region" name="region" type="text" required placeholder="예: 서울 마포구"></div>
       <div class="field"><label for="b-place">어디에 걸 예정인가요</label><input id="b-place" name="place" type="text" placeholder="선택"></div>
       <div class="field"><label for="b-message">작가에게 전할 말</label><textarea id="b-message" name="message" placeholder="선택"></textarea></div>
+      ${promoOn() && Number(w.price) > 0 ? `<div class="field"><label for="b-code">연말 프로모션 코드</label><input id="b-code" name="promoCode" type="text" placeholder="선택" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="20">
+        <p class="fineprint" id="b-code-msg" style="margin-top:8px">연말 프로모션 — 코드를 입력하면 3% 할인됩니다. 12월 31일 구매 신청분까지 적용됩니다.</p></div>` : ''}
       <div class="field"><label>액자를 함께 원하시나요</label>
         <div class="radio">
           <label><input type="radio" name="framed" value="예"> 예</label>
@@ -2949,14 +2973,41 @@ function wireBuy(w){
   modalIn.querySelector('#m-back').addEventListener('click', () => openWork(w.id, false));
   const form = modalIn.querySelector('#buy-form');
   const submit = form.querySelector('#buy-submit');
+  const codeIn = form.querySelector('#b-code'), codeMsg = form.querySelector('#b-code-msg');
+  const codeHint = codeMsg ? codeMsg.textContent : '';
+  const en = () => LANG === 'en';
+  let codeSeq = 0;
+  const checkCode = async () => {
+    if (!codeIn) return null;
+    const raw = codeIn.value.trim(), seq = ++codeSeq;
+    const a = await promoFind(raw);
+    if (seq !== codeSeq) return a;   /* 더 늦게 친 글자가 있으면 그쪽 결과로 표시 */
+    codeMsg.style.color = '';
+    if (!raw) codeMsg.textContent = codeHint;
+    else if (a) codeMsg.textContent = en()
+      ? `Year-end promotion code applied. Price after 3% off: ${w.priceForeign ? promoPriceText(w) : 'KRW ' + promoPrice(w.price).toLocaleString('en-US')}`
+      : `연말 프로모션 코드가 적용되었습니다. 할인가 ${promoPriceText(w)}`;
+    else { codeMsg.textContent = en() ? 'This code is not valid. Please check it and try again.'
+      : '유효하지 않은 코드입니다. 코드를 다시 확인해 주세요.'; codeMsg.style.color = '#C4562B'; }
+    return raw ? a : null;
+  };
+  if (codeIn) codeIn.addEventListener('input', checkCode);
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const err = form.querySelector('#buy-err');
     err.style.display = 'none';
+    const promoArtist = await checkCode();
+    if (codeIn && codeIn.value.trim() && !promoArtist) { codeIn.focus(); return; }
     submit.disabled = true; submit.textContent = '보내는 중...';
     const data = Object.fromEntries(new FormData(form).entries());
     data.agreeNewsletter = !!form.querySelector('#c-news')?.checked;
+    delete data.promoCode;
+    if (promoArtist && promoOn()) {
+      data.promoCode = String(codeIn.value).trim().toUpperCase().slice(0, 20);
+      data.promoArtist = promoArtist.name;
+      data.promoPrice = promoPriceText(w);
+    }
     data.source = VISIT.src || 'direct';
     data.referrer = VISIT.ref;
     try {
@@ -3880,6 +3931,8 @@ const I18N = {
     "배송 예정 지역": "Delivery area",
     "어디에 걸 예정인가요": "Where do you plan to hang it?",
     "작가에게 전할 말": "Anything for the artist",
+    "연말 프로모션 코드": "Year-end promotion code",
+    "연말 프로모션 — 코드를 입력하면 3% 할인됩니다. 12월 31일 구매 신청분까지 적용됩니다.": "Year-end promotion: enter a code for 3% off. Valid for purchase requests made by 31 December.",
     "액자를 함께 원하시나요": "Would you like it framed?",
     "예": "Yes",
     "아니오": "No",

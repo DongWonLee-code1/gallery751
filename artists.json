@@ -24,7 +24,8 @@
         "url": "https://www.guidoor.jp/media/jeah-hyuck-interview-sh-gallery-2026/"
       }
     ],
-    "founding": true
+    "founding": true,
+    "promoHash": "e04b50bb3623d00e47a0b076"
   },
   {
     "id": "song-young",
@@ -50,7 +51,8 @@
       "단체전 200여 회 — 캐나다 · 독일 · 미국 · 일본 · 한국",
       "2007 First Frontier Collage Society Best of Show 수상"
     ],
-    "founding": true
+    "founding": true,
+    "promoHash": "f50502b3a5c45df1a5531310"
   },
   {
     "id": "jang-seungho",
@@ -123,7 +125,8 @@
         "venue": "광주시립미술관 소장",
         "proof": true
       }
-    ]
+    ],
+    "promoHash": "9ecc7d96f6fdfc1be48a54b2"
   },
   {
     "id": "hissing",
@@ -148,7 +151,8 @@
       "2025 갤러리U 신진작가 공모전",
       "2024 제2회 서울-한강 비엔날레 초대 작가",
       "단체전 20여 회 — 서울 · 뉴욕 · 부여 · 대전"
-    ]
+    ],
+    "promoHash": "bb939a7bc17620371530491e"
   },
   {
     "id": "hoohoo",
@@ -172,7 +176,8 @@
       "제10회 아트챌린저 올해의 작가상",
       "부산국제미술대전 · 서울국제미술대상전 · 중앙회화대전 수상",
       "작품 소장 — 한국산업기술진흥원, 한국수력원자력, 서울아산병원, 대구은행 외"
-    ]
+    ],
+    "promoHash": "b6a4fb45f394b5fff76f8bf9"
   },
   {
     "id": "yang-woonchul",
@@ -195,7 +200,8 @@
       "2017 소파 시카고 아트페어 · 월드 아트 두바이",
       "단체전·아트페어 100여 회 — 서울 · 도쿄 · 베이징 · 앤트워프 · 몬트리올",
       "2009 광주시립미술관 창작스튜디오 레지던시"
-    ]
+    ],
+    "promoHash": "9776a929627536aad2696ed2"
   },
   {
     "id": "in-soyeon",
@@ -207,7 +213,8 @@
     ],
     "story": "종이 위에 수채와 아크릴로 작업합니다. 물감이 번지고 스며드는 과정을 따라가며 색면 추상을 그리고, 야자수가 선 풍경처럼 자연에서 만난 이미지도 함께 그립니다.\n추상 작업에서는 물감이 마르며 남기는 번짐의 경계가 그대로 화면의 형태가 되고, 풍경 작업에서는 마른 붓으로 끌어낸 잎의 결과 넉넉한 물로 번진 하늘이 한 화면 안에서 대비를 이룹니다.",
     "exhibitions": [],
-    "portrait": "artists/in-soyeon/portrait.jpg"
+    "portrait": "artists/in-soyeon/portrait.jpg",
+    "promoHash": "e31420d7cf075d1a1256a16e"
   },
   {
     "id": "rainy-wei",
@@ -227,7 +234,8 @@
       "단체전 — CP Projects Space, School of Visual Arts (뉴욕)",
       "단체전 — New York University Commons·Rosenberg Galleries (뉴욕)"
     ],
-    "hideSales": true
+    "hideSales": true,
+    "promoHash": "4f4e67544d05802f9930d136"
   },
   {
     "id": "kwon-hyoseon",
@@ -245,7 +253,8 @@
       "2025 단체전 — 잔상: 눈을 감아도 보이는, 인사1010 갤러리 (서울)",
       "2023 단체전 — 잠금해제, 누아갤러리",
       "2022 단체전 — 느린 향내: 네 작가의 공감각 실험 프로젝트, 서교예술실험센터 (서울)"
-    ]
+    ],
+    "promoHash": "5534fe6ebc272621bcfbe539"
   },
   {
     "id": "fung-ka-fai",
@@ -266,7 +275,8 @@
       "2025 Collection Hong Kong — 홍콩아트센터 Pao Galleries (홍콩)",
       "2025 〈The True Value of Art〉 — Soho House (홍콩)"
     ],
-    "portrait": "artists/fung-ka-fai/portrait.jpg"
+    "portrait": "artists/fung-ka-fai/portrait.jpg",
+    "promoHash": "1b196ff5ada391d89a7e9a1d"
   },
   {
     "id": "troy-liang",
@@ -289,7 +299,8 @@
       "2022 〈Parenthesis〉 — Copeland Gallery (런던)",
       "2022 〈Falling Down〉 — Brixton Library (런던)"
     ],
-    "overseas": true
+    "overseas": true,
+    "promoHash": "d2f5323b02f2f604b2c8324b"
   },
   {
     "id": "lyz-dizon",
@@ -314,7 +325,8 @@
       "2024 〈United Diversity 2: Resurgence〉 — Gateway Gallery (마닐라)"
     ],
     "portrait": "artists/lyz-dizon/portrait.jpg",
-    "overseas": true
+    "overseas": true,
+    "promoHash": "6ccc399cdeb3f6a915d88743"
   },
   {
     "id": "aryt",
@@ -328,6 +340,7 @@
     "exhibitions": [
       "Samaritans of Singapore 〈Colours of Hope〉 공모전·전시 (싱가포르)"
     ],
-    "overseas": true
+    "overseas": true,
+    "promoHash": "e8922ef618d7751bb08ee3fc"
   }
 ]

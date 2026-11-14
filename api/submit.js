@@ -44,8 +44,10 @@ const SPECS = {
       agreeWithdraw: 10, agreeRoyalty: 10,
       /* 선택 — 구매 후 작가 소식 메일 수신 동의 */
       agreeNewsletter: 10,
+      /* 작가 추천 코드 이벤트(2026.12.31 신청분까지) — 코드, 코드 주인 작가, 3% 할인가 */
+      promoCode: 20, promoArtist: 60, promoPrice: 40,
     },
-    subject: (r) => `[구매신청] ${r.workNo ? r.workNo + ' ' : ''}「${r.workTitle || '작품'}」 · ${r.artist || ''} · ${r.name}`,
+    subject: (r) => `[구매신청] ${r.workNo ? r.workNo + ' ' : ''}「${r.workTitle || '작품'}」 · ${r.artist || ''} · ${r.name}${r.promoCode ? ' · 연말 프로모션 ' + r.promoCode : ''}`,
   },
   storage_notify: {
     to: 'inquiries',
@@ -101,6 +103,7 @@ const SPECS = {
 };
 
 const COMMON = { source: 60, referrer: 200 };
+const PROMO_UNTIL = Date.parse('2026-12-31T23:59:59+09:00');
 
 const cut = (v, n) => String(v ?? '').slice(0, n);
 const B64 = /^[A-Za-z0-9+/]+=*$/;
@@ -235,6 +238,8 @@ export default async function handler(req, res) {
     record[k] = typeof body[k] === 'boolean' ? String(body[k]) : clip(body[k], n);
   }
   if (files.length) record.attachments = files.map((f) => f.filename).join(', ');
+  /* 이벤트가 끝난 뒤 들어온 코드는 기록하지 않습니다 */
+  if (type === 'purchase' && Date.now() > PROMO_UNTIL) { delete record.promoCode; delete record.promoArtist; delete record.promoPrice; }
 
   /* 시트와 메일은 동시에 보냅니다 — 시트 쪽은 사진을 드라이브에 저장하느라 몇 초 걸립니다 */
   const jobs = [];
